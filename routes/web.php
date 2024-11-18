@@ -2,6 +2,8 @@
 
 use App\Actions\Fortify\CompletarRegistro;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\InscripcionController;
+use App\Http\Controllers\PersonasController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,4 +36,13 @@ Route::middleware(['guest'])->controller(GoogleController::class)->group(functio
 Route::middleware('auth')->controller(CompletarRegistro::class)->group(function () {
     Route::get('/completar-registro', 'create')->name('completar.registro');
     Route::post('/completar-registro', 'store');
+});
+
+Route::middleware('auth')->controller(PersonasController::class)->group(function () {
+    Route::get('/cargar-registro', 'create')->name('cargar.registro');
+    Route::post('/cargar-registro', 'importarExcel');
+});
+
+Route::middleware('auth')->controller(InscripcionController::class)->group(function () {
+    Route::get('/inscripcion', 'incripcion')->name('incripcion');
 });
