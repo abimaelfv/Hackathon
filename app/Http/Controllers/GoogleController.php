@@ -31,8 +31,7 @@ class GoogleController extends Controller
                 $user->password = bcrypt($this->usuarioCorreo($google->email));
                 $user->email_verified_at = time();
                 $user->save();
-                // $rol = determinar_rol($user->email);
-                // $user->assignRole($rol);
+                $user->assignRole('ESTUDIANTE');
                 Auth::login($user);
                 return redirect()->intended(route('panel'));
             } else {

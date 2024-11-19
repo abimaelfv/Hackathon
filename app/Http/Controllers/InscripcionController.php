@@ -11,13 +11,14 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class InscripcionController extends Controller
 {
     public function incripcion()
     {
+        $this->authorize('inscripcion');
+
         $user_id = Auth::user()->id;
         $ins_id = Integrantes::where('user_id', $user_id)->value('ins_id');
         if (empty($ins_id)) {
@@ -57,6 +58,7 @@ class InscripcionController extends Controller
             $user->genero = $persona->per_genero;
             $user->email_verified_at = time();
             $user->save();
+            $user->assignRole('ESTUDIANTE');
         }
         $miembro_id = $user->id;
         $ins_id = $request->ins_id;

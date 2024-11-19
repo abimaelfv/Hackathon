@@ -3,6 +3,7 @@
 use App\Actions\Fortify\CompletarRegistro;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\InscripcionController;
+use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PersonasController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -34,9 +35,7 @@ Route::middleware([
     'registro',
     'verified',
 ])->group(function () {
-    Route::get('/panel', function () {
-        return Inertia::render('Dashboard');
-    })->name('panel');
+    Route::get('/panel', [PanelController::class, 'index'])->name('panel');
 
     Route::controller(PersonasController::class)->group(function () {
         Route::get('/cargar-registro', 'create')->name('cargar.registro');

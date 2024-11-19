@@ -13,6 +13,8 @@ class PersonasController extends Controller
 
     public function create()
     {
+        $this->authorize('datos');
+
         return Inertia::render('Personas/CreateCargar');
     }
 
