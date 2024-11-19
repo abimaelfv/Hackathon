@@ -17,6 +17,7 @@ class GoogleController extends Controller
     {
         try {
             $google = Socialite::driver('google')->user();
+
             $se_registro = User::where('email', $google->email)->where('estado', '!=', 0)->first();
             if (empty($se_registro)) {
                 $isUDHEmail = str_ends_with($google->email, '@udh.edu.pe');
@@ -24,7 +25,8 @@ class GoogleController extends Controller
                     throw new \Exception('Se requiere un correo institucional de la UDH.');
                 }
                 $user = new User();
-                $user->name = $google->name;
+                $user->name = $google->user['given_name'];
+                $user->apellidos = $google->user['family_name'];
                 $user->email = $google->email;
                 $user->password = bcrypt($this->usuarioCorreo($google->email));
                 $user->email_verified_at = time();

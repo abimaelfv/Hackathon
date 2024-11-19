@@ -52,6 +52,16 @@ const logout = () => {
                                     {{ $t('Dashboard') }}
                                 </NavLink>
                             </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('incripcion')" :active="route().current('incripcion')">
+                                    {{ $t('Inscripción') }}
+                                </NavLink>
+                            </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('cargar.registro')" :active="route().current('cargar.registro')">
+                                    {{ $t('Datos') }}
+                                </NavLink>
+                            </div>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
