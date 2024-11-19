@@ -7,6 +7,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import { canPermiso } from '@/helpers';
 
 defineProps({
     title: String,
@@ -48,8 +49,18 @@ const logout = () => {
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('panel')" :active="route().current('panel')">
+                                <NavLink :href="route('panel')" :active="route().current('panel')" v-if="canPermiso($page.props.auth.permisos, 'panel')">
                                     {{ $t('Dashboard') }}
+                                </NavLink>
+                            </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-if="canPermiso($page.props.auth.permisos, 'inscripcion')">
+                                <NavLink :href="route('incripcion')" :active="route().current('incripcion')">
+                                    {{ $t('Inscripción') }}
+                                </NavLink>
+                            </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-if="canPermiso($page.props.auth.permisos, 'datos')">
+                                <NavLink :href="route('cargar.registro')" :active="route().current('cargar.registro')">
+                                    {{ $t('Datos') }}
                                 </NavLink>
                             </div>
                         </div>

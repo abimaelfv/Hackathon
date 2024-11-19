@@ -11,13 +11,14 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class InscripcionController extends Controller
 {
     public function incripcion()
     {
+        $this->authorize('inscripcion');
+
         $user_id = Auth::user()->id;
         $ins_id = Integrantes::where('user_id', $user_id)->value('ins_id');
         if (empty($ins_id)) {
@@ -44,16 +45,20 @@ class InscripcionController extends Controller
         $user = User::where('codigo', $request->codigo)->where('estado', 1)->first();
         if (empty($user)) {
             $persona = Personas::where('per_codigo', $request->codigo)->where('per_estado', 1)->first();
-            $user = new User();
+            $user = User::where('email', $request->codigo . '@udh.edu.pe')->first();
+            if (empty($user)) {
+                $user = new User();
+                $user->password = bcrypt($persona->per_codigo);
+            }
             $user->codigo = $persona->per_codigo;
             $user->documento = $persona->per_documento;
             $user->name = $persona->per_nombres;
             $user->apellidos = $persona->per_apellidos;
             $user->email = $persona->per_codigo . '@udh.edu.pe';
-            $user->password = bcrypt($persona->per_codigo);
             $user->genero = $persona->per_genero;
             $user->email_verified_at = time();
             $user->save();
+            $user->assignRole('ESTUDIANTE');
         }
         $miembro_id = $user->id;
         $ins_id = $request->ins_id;
