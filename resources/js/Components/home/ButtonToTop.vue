@@ -27,7 +27,7 @@ onUnmounted(() => {
 <template>
     <div>
         <button v-if="isVisible" @click="scrollToTop"
-            class="fixed bottom-4 right-4 bg-[#991B1BCC] text-white rounded-full p-4 transition-transform transform duration-700 hover:scale-110 sm:bottom-8 sm:right-8">
+            class="fixed bottom-4 right-4 bg-[#113475cc] text-white rounded-full p-4 transition-transform transform duration-700 hover:scale-110 sm:bottom-8 sm:right-8">
             <ArrowUp class="w-6 h-6" />
         </button>
     </div>

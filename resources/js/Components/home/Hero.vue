@@ -16,7 +16,7 @@ const closeModal = () => {
 <template>
     <section id="bases">
         <div
-            class="grid md:grid-cols-2 gap-8 bg-red-900/25 backdrop-blur-sm p-10 xs:mx-2 rounded-3xl border border-white/30 hover:shadow-red-500/20 hover:shadow-xl mt-[-30px] 2xl:mt-[-100px]">
+            class="grid md:grid-cols-2 gap-8 bg-blue-900/25 backdrop-blur-sm p-10 xs:mx-2 rounded-3xl border border-white/30 hover:shadow-blue-500/20 hover:shadow-xl mt-[-30px] 2xl:mt-[-100px]">
             <div class="items-center content-center">
                 <h2 class="text-2xl font-bold mb-2 xs:text-center md:text-left">OBJETIVO</h2>
                 <p class="text-sm italic">
@@ -31,7 +31,7 @@ const closeModal = () => {
                     <p class="py-3 min-h-14 text-black">¡Inscríbete ya y sé parte del cambio!</p>
                     <div class="flex justify-center">
                         <button @click="openModal"
-                            class="block w-full text-center px-4 py-2 rounded-lg bg-[#991B1BCC] text-white hover:bg-red-800 transition">
+                            class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
                             Ver bases
                         </button>
                     </div>
