@@ -205,7 +205,8 @@ const confirmar = (id) => {
                                                         {{ integrante.user.phone }}
                                                     </td>
                                                     <td class="px-6 py-4 text-center">
-                                                        <button class="cursor-pointer p-2" :disabled="!isEditable" :class="{ 'opacity-25 cursor-not-allowed': !isEditable }"
+                                                        <button class="cursor-pointer p-2" :disabled="!isEditable"
+                                                            :class="{ 'opacity-25 cursor-not-allowed': !isEditable }"
                                                             @click="eliminar(integrante.int_id)">
                                                             <i class="fa fa-trash text-red-600"></i>
                                                         </button>
@@ -226,23 +227,27 @@ const confirmar = (id) => {
                                 </div>
                             </div>
 
-                            <div class="flex items-center justify-between mt-4">
+                            <div
+                                class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4 space-y-4 sm:space-y-0">
                                 <div class="text-sm">
                                     Estado de postulación:
-                                    <span class="ml-2 font-bold text-red-600 bg-red-100 px-2 py-1 rounded"
-                                        v-if="inscripcion.ins_estado == 2">Borrador</span>
-                                    <span v-else class="ml-2 font-bold text-green-600 bg-green-100 px-2 py-1 rounded">
-                                        Confirmada
+                                    <span class="ml-2 font-bold px-2 py-1 rounded" :class="{
+                                        'text-red-600 bg-red-100': inscripcion.ins_estado == 2,
+                                        'text-green-600 bg-green-100': inscripcion.ins_estado != 2,
+                                    }">
+                                        {{ inscripcion.ins_estado == 2 ? 'Borrador' : 'Confirmada' }}
                                     </span>
                                 </div>
-                                <div>
-                                    <PrimaryButton :class="{ 'opacity-25': insc.processing }"
-                                        v-if="isEditable" :disabled="insc.processing" @click="actualizarInscripcion">
+
+                                <div class="flex flex-wrap gap-2">
+                                    <PrimaryButton :class="{ 'opacity-25': insc.processing }" v-if="isEditable"
+                                        :disabled="insc.processing" @click="actualizarInscripcion"
+                                        class="w-full sm:w-auto">
                                         {{ $t("Guardar en borrador") }}
                                     </PrimaryButton>
 
-                                    <PrimaryButton class="ml-2 !bg-green-800" @click="validar(inscripcion.ins_id)"
-                                        v-if="isEditable">
+                                    <PrimaryButton class="!bg-green-800 w-full sm:w-auto" v-if="isEditable"
+                                        @click="validar(inscripcion.ins_id)">
                                         {{ $t("Confirmar inscripción") }}
                                     </PrimaryButton>
                                 </div>
