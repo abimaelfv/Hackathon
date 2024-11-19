@@ -144,7 +144,7 @@ class InscripcionController extends Controller
                 if (!$inscripcion) {
                     throw new \Exception('Incripcion no encontrado.');
                 }
-                $existLider = Integrantes::where('user_id', $inscripcion->user_id)->exist();
+                $existLider = Integrantes::where('user_id', $inscripcion->user_id)->exists();
 
                 $equipo = empty($inscripcion->ins_equipo) ? false : true;
                 $categoria = empty($inscripcion->ins_categoria) ? false : true;
