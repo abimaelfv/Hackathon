@@ -13,6 +13,7 @@ const toggleMenu = () => {
 
 const updateActiveSection = () => {
     const sections = [
+        { id: "#inicio", element: document.querySelector("#inicio") },
         { id: "#bases", element: document.querySelector("#bases") },
         { id: "#premios", element: document.querySelector("#premios") },
     ];
