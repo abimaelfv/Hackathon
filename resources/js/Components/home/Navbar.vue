@@ -61,17 +61,17 @@ onUnmounted(() => {
 
             <!-- Center Menu -->
             <div class="hidden lg:flex items-center gap-12 font-semibold mx-auto">
-                <a href="#bases" :class="activeSection === '#bases' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                <a href="#bases" :class="activeSection === '#bases' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
                     class="transition-colors cursor-pointer">
                     Bases
                 </a>
                 <a href="#premios"
-                    :class="activeSection === '#premios' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                    :class="activeSection === '#premios' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
                     class="transition-colors cursor-pointer">
                     Premios
                 </a>
                 <a href="#location"
-                    :class="activeSection === '#location' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                    :class="activeSection === '#location' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
                     class="transition-colors cursor-pointer">
                     Ubicación
                 </a>
@@ -80,7 +80,7 @@ onUnmounted(() => {
             <!-- Button (Right) -->
             <div class="hidden lg:block">
                 <Link :href="$page.props.auth.user ? '/panel' : '/login'"
-                    class="block w-full text-center px-4 py-2 rounded-lg bg-[#991B1BCC] text-white hover:bg-red-800 transition">
+                    class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
                 {{ $page.props.auth.user ? 'Home' : 'Inscribete ya!' }}
                 </Link>
             </div>
@@ -95,24 +95,24 @@ onUnmounted(() => {
         <!-- Mobile Menu -->
         <div v-if="isMenuOpen" class="lg:hidden mt-4 py-4 px-2 bg-black/80 backdrop-blur-lg rounded-xl text-center">
             <div class="flex flex-col gap-4">
-                <a href="#bases" :class="activeSection === '#bases' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                <a href="#bases" :class="activeSection === '#bases' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
                     class="px-4 py-2 transition-colors cursor-pointer">
                     Bases
                 </a>
                 <a href="#premios"
-                    :class="activeSection === '#premios' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                    :class="activeSection === '#premios' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
                     class="px-4 py-2 transition-colors cursor-pointer">
                     Premios
                 </a>
                 <a href="#location"
-                    :class="activeSection === '#location' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                    :class="activeSection === '#location' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
                     class="px-4 py-2 transition-colors cursor-pointer">
                     Ubicación
                 </a>
                 <div class="flex justify-center">
                     <Link :href="$page.props.auth.user ? '/panel' : '/login'"
-                        class="block w-full text-center px-4 py-2 rounded-lg bg-[#991B1BCC] text-white hover:bg-red-800 transition">
-                    {{ $page.props.auth.user ? 'Home' : 'Inscribete ya!' }}
+                        class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
+                    {{ $page.props.auth.user ? 'Home' : '!Inscribete ya!' }}
                     </Link>
                 </div>
             </div>
