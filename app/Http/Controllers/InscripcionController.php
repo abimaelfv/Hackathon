@@ -86,12 +86,10 @@ class InscripcionController extends Controller
                 ]
             );
             // Si creo su inscripcion lo borro
-            if ($integrante) {
-                $incripcion = Inscripciones::where('user_id', $miembro_id)->first();
-                if ($incripcion && $incripcion->user_id != $miembro_id) {
-                    $incripcion->integrantes()->delete();
-                    $incripcion->delete();
-                }
+            $incripcion = Inscripciones::where('user_id', $miembro_id)->first();
+            if ($incripcion && $incripcion->ins_id != $ins_id) {
+                $incripcion->integrantes()->delete();
+                $incripcion->delete();
             }
             DB::commit();
         } catch (\Throwable $th) {
