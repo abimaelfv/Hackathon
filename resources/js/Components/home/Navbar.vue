@@ -47,8 +47,8 @@ onUnmounted(() => {
 
 <template>
     <nav :class="[
-        'xl:px-4 lg:px-9 sm:px-20 xs:px-10 xl:mx-40 lg:mx-42 md:mx-42 sm:mx-30 py-4 fixed top-0 left-0 right-0 z-50 rounded-xl my-2 transition-all duration-500',
-        isScrolled ? 'xl:mx-44 lg:mx-42 md:mx-42 sm:mx-37 mx-2 bg-black/80 backdrop-blur-lg border border-white/40 shadow-lg xl:mr-60 xl:ml-60 lg:mr-32 lg:ml-32 sm:ml-11 sm:mr-11 xs:mr-7 xs:ml-7' : 'border-none bg-transparent backdrop-blur-2xl'
+        'xl:px-4 lg:px-9 sm:px-20 xs:px-10 xl:mx-40 lg:mx-42 md:mx-42 sm:mx-30 py-4 fixed z-50 rounded-xl my-2 transition-all duration-500',
+        isScrolled ? 'xl:mx-44 lg:mx-42 md:mx-42 sm:mx-37 mx-2 bg-black/80 backdrop-blur-lg border border-white/40 shadow-lg xl:mr-60 xl:ml-60 lg:mr-32 lg:ml-32 sm:ml-11 sm:mr-11 xs:mr-7 xs:ml-7 top-0 left-5 right-4 pl-2' : 'top-0 left-4 right-3 border-none bg-transparent backdrop-blur-2xl'
     ]">
         <div class="flex items-center justify-between relative">
             <!-- Logo (centered) -->
