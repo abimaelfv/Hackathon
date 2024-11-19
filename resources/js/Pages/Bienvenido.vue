@@ -1,4 +1,5 @@
 <script setup>
+import { Head } from '@inertiajs/vue3'
 import Navbar from '../Components/home/Navbar.vue'
 import Hero from '../Components/home/Hero.vue'
 import Package from '../Components/home/Package.vue'
@@ -6,10 +7,11 @@ import Sponsors from '../Components/home/Sponsors.vue'
 import Foot from '../Components/home/Foot.vue'
 import ButtonToTop from '../Components/home/ButtonToTop.vue'
 import Location from '@/Components/home/Location.vue'
-
 </script>
 
 <template>
+
+    <Head title="Welcome" />
     <div
         class="min-h-screen bg-gradient-to-br bg-black to-red-900 text-white px-0 2xl:px-96 xl:px-60 lg:px-62 md:px-52 font-epilogue">
         <header id="inicio">

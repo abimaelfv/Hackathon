@@ -5,7 +5,7 @@ import { Menu, X, Terminal } from "lucide-vue-next";
 
 const isMenuOpen = ref(false);
 const isScrolled = ref(false);
-const activeSection = ref("#base");
+const activeSection = ref("#inicio");
 
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
@@ -90,22 +90,18 @@ onUnmounted(() => {
         <!-- Mobile Menu -->
         <div v-if="isMenuOpen" class="lg:hidden mt-4 py-4 px-2 bg-black/80 backdrop-blur-lg rounded-xl text-center">
             <div class="flex flex-col gap-4">
-                <a href="#inicio" :class="activeSection === '#inicio' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                <a href="#bases" :class="activeSection === '#bases' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
                     class="px-4 py-2 transition-colors cursor-pointer">
-                    Inicio
+                    Bases
+                </a>
+                <a href="#premios"
+                    :class="activeSection === '#premios' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                    class="px-4 py-2 transition-colors cursor-pointer">
+                    Premios
                 </a>
                 <a href="https://maps.app.goo.gl/86TGP1KvfbczNvyb8" target="_blank"
                     class="px-4 py-2 hover:text-red-300 transition-colors cursor-pointer">
                     Ubicación
-                </a>
-                <a href="#bases" :class="activeSection === '#bases' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
-                    class="px-4 py-2 transition-colors cursor-pointer">
-                    bases
-                </a>
-                <a href="#colaboradores"
-                    :class="activeSection === '#colaboradores' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
-                    class="px-4 py-2 transition-colors cursor-pointer">
-                    colaboradores
                 </a>
                 <div class="flex justify-center">
                     <Link :href="$page.props.auth.user ? '/panel' : '/login'"

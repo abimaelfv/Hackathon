@@ -2,7 +2,7 @@
 import { Link } from '@inertiajs/vue3';
 </script>
 <template>
-    <section id="hero">
+    <section id="bases">
         <div class="relative min-h-[70vh] w-full overflow-hidden">
             <!-- Background Image -->
             <img src="https://images.pexels.com/photos/801863/pexels-photo-801863.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"

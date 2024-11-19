@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { ChevronRight, Package } from "lucide-vue-next";
+import { ChevronRight, ChartBarStacked } from "lucide-vue-next";
 
 const abiertoPaquete = 0;
 const isOpen = ref(Array(5).fill(false));
@@ -19,45 +19,18 @@ const parseDescription = (description) => {
 
 const items = [
     {
-        title: "Paquete local",
-        description: `Mistika Casa Club, ubicado en el Jr. La Estancia S/N, Urb. Santa María del Huallaga, proporcionará:
-            - Mesas con manteles 
-            - Sillas con lazos
-            - Seguridad
-            - Limpieza
-            - Mozos
+        title: "Categoría A",
+        description: `Primer puesto se le dará:
+            - S/ 300.00
+            - Resolución de reconocimiento al equipo
         `,
-        hour: "",
     },
     {
-        title: "Paquete de comida",
-        description: "Consistirá de un plato gourmet en base a pollo + gaseosa inca kola de 600 mL",
-        hour: "",
-    },
-    {
-        title: "Paquete barra libre",
-        description: `Incluye una selección de bebidas alcohólicas y no alcohólicas ilimitadas durante 3 horas
-            - Bebidas alcohólicas: cócteles y licores.
-            - Bebidas  no alcohólicas: gaseosas y refrescos.
-            - Personal capacitado para servir las bebidas.
+        title: "Categoría B",
+        description: `Primer puesto se le dará
+            - S/ 400.00
+            - Resolución de reconocimiento al equipo
         `,
-        hour: "",
-    },
-    {
-        title: "Paquete orquesta",
-        description: `Disfruta de la orquesta: Mirko Viera.
-            - Actuación en vivo de la orquesta durante 5 horas.
-            - Amplia variedad de repertorio musical: salsa, rock, baladas y más.
-        `,
-        hour: "",
-    },
-    {
-        title: "Paquete banda",
-        description: `Disfruta de la banda:
-            - Actuación en vivo de la banda durante 1 hora.
-            - Estilo musical variado.
-        `,
-        hour: "",
     },
 ].map((item) => ({
     ...item,
@@ -66,9 +39,10 @@ const items = [
 </script>
 
 <template>
-    <section id="paquetes">
+    <section id="premios">
         <div class="py-20 xs:mx-2">
-            <h1 class="text-center text-3xl font-semibold py-10">[ Paquetes ]</h1>
+            <h1 class="text-center text-3xl font-semibold py-5">[ Premios ]</h1>
+            <h3 class="text-center font-semibold pt-5 pb-5">Premiación Viernes 29-Nov</h3>
             <div class="space-y-4 max-w-4xl mx-auto">
                 <template v-for="(item, index) in items" :key="index">
                     <div
@@ -76,7 +50,7 @@ const items = [
                         <div @click="toggleAccordion(index)"
                             :class="['p-4 font-bold text-xl cursor-pointer hover:bg-red-100/10 transition-colors flex items-center justify-between text-center', isOpen[index] ? 'bg-gradient-to-l from-black/70 to-red-900/60' : '']">
                             <div class="flex items-center gap-2">
-                                <Package class="w-5" />
+                                <ChartBarStacked class="w-5" />
                                 <span class="mt-1">
                                     {{ item.title }}
                                 </span>
