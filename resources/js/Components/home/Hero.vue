@@ -1,5 +1,5 @@
 <script setup>
-import ButtonPrimarySecondEffect from './ButtonPrimarySecondEffect.vue';
+import { Link } from '@inertiajs/vue3';
 </script>
 <template>
     <section id="hero">
@@ -24,7 +24,8 @@ import ButtonPrimarySecondEffect from './ButtonPrimarySecondEffect.vue';
                         System Fest
                     </h1>
 
-                    <div class="flex flex-wrap items-center justify-center gap-4 text-sm sm:text-base md:text-lg animate-fade-in-up">
+                    <div
+                        class="flex flex-wrap items-center justify-center gap-4 text-sm sm:text-base md:text-lg animate-fade-in-up">
                         <span
                             class="w-full sm:w-[220px] md:w-[220px] text-center bg-black/80 px-4 sm:px-6 py-3 rounded-3xl backdrop-blur-sm border border-red-500/40 hover:shadow-red-500/20 hover:shadow-xl">
                             Noviembre 29
@@ -51,10 +52,10 @@ import ButtonPrimarySecondEffect from './ButtonPrimarySecondEffect.vue';
                     <h3 class="text-2xl font-bold text-black lg:text-base">Ticket invitado</h3>
                     <p class="py-3 min-h-20 text-black">Genera tu ticket digital como invitado</p>
                     <div class="flex justify-center">
-                        <ButtonPrimarySecondEffect
-                            class="w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[900px]"
-                            :label="true ? 'Ver mi ticket' : 'Generar'"
-                            :link="false ? '/generate-ticket' : '/participant-details'" />
+                        <Link :href="$page.props.auth.user ? '/panel' : '/login'"
+                            class="block w-full text-center px-4 py-2 rounded-lg bg-[#991B1BCC] text-white hover:bg-red-800 transition">
+                        {{ $page.props.auth.user ? 'Ver' : 'Inscribete ya!' }}
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -63,10 +64,10 @@ import ButtonPrimarySecondEffect from './ButtonPrimarySecondEffect.vue';
                     <h3 class="text-2xl font-bold text-black lg:text-base">Ticket estudiante</h3>
                     <p class="py-3 min-h-20 text-black">Genera tu ticket digital de ingreso</p>
                     <div class="flex justify-center">
-                        <ButtonPrimarySecondEffect
-                            class="w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[900px]"
-                            :label="true ? 'Ver mi ticket' : 'Generar'"
-                            :link="false ? '/generate-ticket' : '/participant-details'" />
+                        <Link :href="$page.props.auth.user ? '/panel' : '/login'"
+                            class="block w-full text-center px-4 py-2 rounded-lg bg-[#991B1BCC] text-white hover:bg-red-800 transition">
+                        {{ $page.props.auth.user ? 'Ver' : 'Inscribete ya!' }}
+                        </Link>
                     </div>
                 </div>
             </div>

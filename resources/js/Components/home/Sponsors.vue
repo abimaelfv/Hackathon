@@ -16,7 +16,7 @@ const logosSponsors = [
         name: "VRI UDH",
         src: "src/assets/imgs/vri.png",
         url: "https://www.facebook.com/investigacionudh",
-        alt: "Vicerrectorado de investigación UDH"	
+        alt: "Vicerrectorado de investigación UDH"
     },
     {
         name: "Makita makis express ",
@@ -72,7 +72,7 @@ const logosSponsors = [
                     <div
                         class="bg-white backdrop-blur-sm p-4 rounded-xl hover:shadow-xl hover:shadow-red-500/60 transition-all hover:-translate-y-1">
                         <a :href="ls.url" target="_blank" :title="ls.name">
-                            <img :src="ls.src" :alt="ls.src" class="w-full rounded-lg">
+                            <!-- <img :src="ls.src" :alt="ls.src" class="w-full rounded-lg"> -->
                         </a>
                     </div>
                 </template>
