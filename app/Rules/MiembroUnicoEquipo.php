@@ -20,7 +20,7 @@ class MiembroUnicoEquipo implements ValidationRule
 
         // Verificar si el usuario ya pertenece a otro equipo
         if ($user && Integrantes::where('user_id', $user->id)->exists()) {
-            $fail('El estudiante ya está en otro equipo.');
+            $fail('El estudiante ya está registrado en un equipo.');
         }
     }
 }
