@@ -21,7 +21,7 @@ const props = defineProps({
 </script>
 <template>
     <div
-        class="border-white/30 border-[2px] rounded-xl backdrop-blur-lg bg-red-400/10 px-0 py-3 hover:shadow-red-500/20 hover:shadow-xl transition-all hover:-translate-y-1 w-auto">
+        class="border-white/30 border-[2px] rounded-xl backdrop-blur-lg bg-blue-400/10 px-0 py-3 hover:shadow-blue-500/20 hover:shadow-xl transition-all hover:-translate-y-1 w-auto">
         <!-- body -->
         <div class="rounded-lg items-center content-center flex justify-center">
             <img :src="img" alt="" class="h-40 mx-4 bg-white rounded-lg">
