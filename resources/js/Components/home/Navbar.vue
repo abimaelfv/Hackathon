@@ -1,11 +1,11 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import { Link } from "@inertiajs/vue3";
 import { Menu, X, Terminal } from "lucide-vue-next";
-import ButtonPrimarySecondEffect from "./ButtonPrimarySecondEffect.vue";
 
 const isMenuOpen = ref(false);
 const isScrolled = ref(false);
-const activeSection = ref("#inicio");
+const activeSection = ref("#base");
 
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
@@ -13,9 +13,8 @@ const toggleMenu = () => {
 
 const updateActiveSection = () => {
     const sections = [
-        { id: "#inicio", element: document.querySelector("#inicio") },
-        { id: "#paquetes", element: document.querySelector("#paquetes") },
-        { id: "#auspiciadores", element: document.querySelector("#auspiciadores") },
+        { id: "#bases", element: document.querySelector("#bases") },
+        { id: "#premios", element: document.querySelector("#premios") },
     ];
 
     for (const section of sections) {
@@ -60,28 +59,25 @@ onUnmounted(() => {
 
             <!-- Center Menu -->
             <div class="hidden lg:flex items-center gap-12 font-semibold mx-auto">
-                <a href="#inicio" :class="activeSection === '#inicio' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                <a href="#bases" :class="activeSection === '#bases' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
                     class="transition-colors cursor-pointer">
-                    Inicio
+                    Bases
+                </a>
+                <a href="#premios"
+                    :class="activeSection === '#premios' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                    class="transition-colors cursor-pointer">
+                    Premios
                 </a>
                 <a href="https://maps.app.goo.gl/86TGP1KvfbczNvyb8" target="_blank"
                     class="hover:text-red-300 transition-colors cursor-pointer">Ubicación</a>
-                <a href="#paquetes"
-                    :class="activeSection === '#paquetes' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
-                    class="transition-colors cursor-pointer">
-                    Paquetes
-                </a>
-                <a href="#auspiciadores"
-                    :class="activeSection === '#auspiciadores' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
-                    class="transition-colors cursor-pointer">
-                    Auspiciadores
-                </a>
             </div>
 
             <!-- Button (Right) -->
             <div class="hidden lg:block">
-                <ButtonPrimarySecondEffect class="w-[120px]" :label="true ? 'Ver mi ticket' : 'Ingresar'"
-                    :link="false ? '/generate-ticket' : '/participant-details'" />
+                <Link :href="$page.props.auth.user ? '/panel' : '/login'"
+                    class="block w-full text-center px-4 py-2 rounded-lg bg-[#991B1BCC] text-white hover:bg-red-800 transition">
+                {{ $page.props.auth.user ? 'Home' : 'Iniciar sesión' }}
+                </Link>
             </div>
 
             <!-- Hamburger Menu (Mobile) -->
@@ -102,19 +98,20 @@ onUnmounted(() => {
                     class="px-4 py-2 hover:text-red-300 transition-colors cursor-pointer">
                     Ubicación
                 </a>
-                <a href="#paquetes"
-                    :class="activeSection === '#paquetes' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                <a href="#bases" :class="activeSection === '#bases' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
                     class="px-4 py-2 transition-colors cursor-pointer">
-                    Paquetes
+                    bases
                 </a>
-                <a href="#auspiciadores"
-                    :class="activeSection === '#auspiciadores' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                <a href="#colaboradores"
+                    :class="activeSection === '#colaboradores' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
                     class="px-4 py-2 transition-colors cursor-pointer">
-                    Auspiciadores
+                    colaboradores
                 </a>
                 <div class="flex justify-center">
-                    <ButtonPrimarySecondEffect class="w-[120px]" :label="true ? 'Ver mi ticket' : 'Ingresar'"
-                        :link="false ? '/generate-ticket' : '/participant-details'" />
+                    <Link :href="$page.props.auth.user ? '/panel' : '/login'"
+                        class="block w-full text-center px-4 py-2 rounded-lg bg-[#991B1BCC] text-white hover:bg-red-800 transition">
+                    {{ $page.props.auth.user ? 'Home' : 'Iniciar sesión' }}
+                    </Link>
                 </div>
             </div>
         </div>
