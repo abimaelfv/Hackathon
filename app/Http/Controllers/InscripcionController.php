@@ -32,6 +32,12 @@ class InscripcionController extends Controller
         return Inertia::render('Inscripcion', compact('inscripcion'));
     }
 
+    public function inscripciones(){
+
+        $inscripciones = Inscripciones::where('ins_estado', 1)->get();
+        return Inertia::render('Inscripciones/Index', compact('inscripciones'));
+    }
+
     public function addMiembro(Request $request): RedirectResponse
     {
         $request->validate([

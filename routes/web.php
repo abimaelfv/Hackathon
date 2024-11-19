@@ -50,5 +50,7 @@ Route::middleware([
         Route::post('/actualizar-inscripcion', 'upInscripcion')->name('actualizar.incripcion');
         Route::get('/validar-inscripcion/{ins_id}', 'validar')->name('validar.incripcion');
         Route::post('/confirmar-inscripcion/{ins_id}', 'confirmar')->name('confirmar.incripcion');
+
+        Route::get('/inscripciones', 'inscripciones')->name('inscripciones');
     });
 });
