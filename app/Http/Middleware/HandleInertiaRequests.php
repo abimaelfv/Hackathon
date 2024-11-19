@@ -44,6 +44,7 @@ class HandleInertiaRequests extends Middleware
                 'roles' => $roles ?? '',
                 'permisos' => $permisos ?? '',
             ],
+            'app_name' => config('app.name'),
             // 'ziggy' => fn () => [
             //     ...(new Ziggy)->toArray(),
             //     'location' => $request->url(),
