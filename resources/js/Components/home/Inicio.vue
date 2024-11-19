@@ -1,3 +1,6 @@
+<script setup>
+import { Link } from "@inertiajs/vue3";
+</script>
 <template>
     <section id="inicio">
         <div class="relative min-h-[70vh] w-full overflow-hidden">
@@ -21,14 +24,19 @@
                         Hackathon
                     </h1>
 
+                    <div class="flex justify-end items-center content-center flex-col ">
+                        <Link :href="$page.props.auth.user ? '/panel' : '/login'"
+                            class="w-60 sm:w-[220px] md:w-[220px] text-center bg-blue-900 px-4 sm:px-6 py-3 rounded-xl backdrop-blur-sm border border-none hover:shadow-blue-500/20 hover:shadow-lg">
+                        {{ $page.props.auth.user ? 'Ir al panel' : '¡ Postula ya !' }}
+                        </Link>
+                    </div>
+
                     <div
-                        class="flex flex-wrap items-center justify-center gap-4 text-sm sm:text-base md:text-lg animate-fade-in-up">
-                        <span
-                            class="w-full sm:w-[220px] md:w-[220px] text-center bg-black/80 px-4 sm:px-6 py-3 rounded-3xl backdrop-blur-sm border border-blue-500/40 hover:shadow-blue-500/20 hover:shadow-xl">
-                            Noviembre 29
+                        class="flex flex-wrap items-center justify-center gap-4 text-sm sm:text-base md:text-lg animate-fade-in-up font-semibold">
+                        <span class="w-autotext-center bg-blue-200/5 rounded-lg px-4 sm:px-3 py-2  backdrop-blur-sm">
+                            Noviembre 27
                         </span>
-                        <span
-                            class="w-full sm:w-[220px] md:w-[220px] text-center bg-black/80 px-4 sm:px-6 py-3 rounded-3xl backdrop-blur-sm border border-blue-500/40 hover:shadow-blue-500/20 hover:shadow-xl">
+                        <span class="w-autotext-center bg-blue-200/5 rounded-lg px-4 sm:px-3 py-2  backdrop-blur-sm">
                             Biblioteca UDH
                         </span>
                     </div>

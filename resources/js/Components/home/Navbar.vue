@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 import { Link } from "@inertiajs/vue3";
-import { Menu, X, Terminal } from "lucide-vue-next";
+import { Menu, X, CodeXml } from "lucide-vue-next";
 
 const isMenuOpen = ref(false);
 const isScrolled = ref(false);
@@ -47,15 +47,15 @@ onUnmounted(() => {
 
 <template>
     <nav :class="[
-        'xl:px-4 lg:px-9 sm:px-20 xs:px-10 xl:mx-40 lg:mx-42 md:mx-42 sm:mx-30 py-4 fixed top-0 left-0 right-0 z-50 rounded-xl my-2 transition-all duration-500',
-        isScrolled ? 'xl:mx-44 lg:mx-42 md:mx-42 sm:mx-37 mx-2 bg-black/80 backdrop-blur-lg border border-white/40 shadow-lg xl:mr-60 xl:ml-60 lg:mr-32 lg:ml-32 sm:ml-11 sm:mr-11 xs:mr-7 xs:ml-7' : 'border-none bg-transparent backdrop-blur-2xl'
+        'xl:px-4 lg:px-9 sm:px-20 xs:px-10 xl:mx-40 lg:mx-42 md:mx-42 sm:mx-30 py-4 fixed z-50 rounded-xl my-2 transition-all duration-500',
+        isScrolled ? 'xl:mx-44 lg:mx-42 md:mx-42 sm:mx-37 mx-2 bg-black/80 backdrop-blur-lg border border-white/40 shadow-lg xl:mr-60 xl:ml-60 lg:mr-32 lg:ml-32 sm:ml-11 sm:mr-11 xs:mr-7 xs:ml-7 top-0 left-5 right-4 pl-2' : 'top-0 left-4 right-3 border-none bg-transparent backdrop-blur-2xl'
     ]">
         <div class="flex items-center justify-between relative">
             <!-- Logo (centered) -->
             <a href="#inicio" class="flex hover:scale-105 transition-transform font-semibold text-2xl">
-                <div class="flex items-center content-center">
+                <div class="flex items-center content-center gap-2 ml-2">
                     PAISI
-                    <Terminal />
+                    <CodeXml />
                 </div>
             </a>
 
@@ -81,12 +81,12 @@ onUnmounted(() => {
             <div class="hidden lg:block">
                 <Link :href="$page.props.auth.user ? '/panel' : '/login'"
                     class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
-                {{ $page.props.auth.user ? 'Home' : 'Inscribete ya!' }}
+                {{ $page.props.auth.user ? 'Ir al panel' : '¡ Postula ya !' }}
                 </Link>
             </div>
 
             <!-- Hamburger Menu (Mobile) -->
-            <button @click="toggleMenu" class="lg:hidden p-2 rounded-md hover:bg-gray-800/40">
+            <button @click="toggleMenu" class="lg:hidden p-2 rounded-md hover:bg-gray-800/40 mr-2">
                 <Menu v-if="!isMenuOpen" class="h-6 w-6 text-white" />
                 <X v-else class="h-6 w-6 text-white" />
             </button>
@@ -109,12 +109,12 @@ onUnmounted(() => {
                     class="px-4 py-2 transition-colors cursor-pointer">
                     Ubicación
                 </a>
-                <div class="flex justify-center">
+                <!-- <div class="flex justify-center">
                     <Link :href="$page.props.auth.user ? '/panel' : '/login'"
                         class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
-                    {{ $page.props.auth.user ? 'Home' : '!Inscribete ya!' }}
+                    {{ $page.props.auth.user ? 'Ir al panel' : '¡ Inscribete ya !' }}
                     </Link>
-                </div>
+                </div> -->
             </div>
         </div>
     </nav>
