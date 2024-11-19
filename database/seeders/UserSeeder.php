@@ -17,6 +17,6 @@ class UserSeeder extends Seeder
             'name' => 'ABIMAEL EPIFANIO',
             'apellidos' => 'FERNANDEZ VENTURA',
             'email' => '2019110516@udh.edu.pe',
-        ]);
+        ])->assignRole('ADMINISTRADOR');
     }
 }

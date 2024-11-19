@@ -3,6 +3,7 @@
 use App\Actions\Fortify\CompletarRegistro;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\InscripcionController;
+use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PersonasController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -17,17 +18,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'registro',
-    'verified',
-])->group(function () {
-    Route::get('/panel', function () {
-        return Inertia::render('Dashboard');
-    })->name('panel');
-});
-
 Route::middleware(['guest'])->controller(GoogleController::class)->group(function () {
     Route::get('/google/redirect', 'redirect')->name('google');
     Route::get('/google/callback', 'callback');
@@ -38,17 +28,29 @@ Route::middleware('auth')->controller(CompletarRegistro::class)->group(function 
     Route::post('/completar-registro', 'store');
 });
 
-Route::middleware('auth')->controller(PersonasController::class)->group(function () {
-    Route::get('/cargar-registro', 'create')->name('cargar.registro');
-    Route::post('/cargar-registro', 'importarExcel');
-    Route::get('/personas/buscar/{codigo}', 'buscar')->name('personas.buscar');
-});
 
-Route::middleware('auth')->controller(InscripcionController::class)->group(function () {
-    Route::get('/inscripcion', 'incripcion')->name('incripcion');
-    Route::post('/agregar-miembro', 'addMiembro')->name('agregar.miembro');
-    Route::delete('/eliminar-miembro/{id}', 'deleteMiembro')->name('eliminar.miembro');
-    Route::post('/actualizar-inscripcion', 'upInscripcion')->name('actualizar.incripcion');
-    Route::get('/validar-inscripcion/{ins_id}', 'validar')->name('validar.incripcion');
-    Route::post('/confirmar-inscripcion/{ins_id}', 'confirmar')->name('confirmar.incripcion');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'registro',
+    'verified',
+])->group(function () {
+    Route::get('/panel', [PanelController::class, 'index'])->name('panel');
+
+    Route::controller(PersonasController::class)->group(function () {
+        Route::get('/cargar-registro', 'create')->name('cargar.registro');
+        Route::post('/cargar-registro', 'importarExcel');
+        Route::get('/personas/buscar/{codigo}', 'buscar')->name('personas.buscar');
+    });
+
+    Route::controller(InscripcionController::class)->group(function () {
+        Route::get('/inscripcion', 'incripcion')->name('incripcion');
+        Route::post('/agregar-miembro', 'addMiembro')->name('agregar.miembro');
+        Route::delete('/eliminar-miembro/{id}', 'deleteMiembro')->name('eliminar.miembro');
+        Route::post('/actualizar-inscripcion', 'upInscripcion')->name('actualizar.incripcion');
+        Route::get('/validar-inscripcion/{ins_id}', 'validar')->name('validar.incripcion');
+        Route::post('/confirmar-inscripcion/{ins_id}', 'confirmar')->name('confirmar.incripcion');
+
+        Route::get('/inscripciones', 'inscripciones')->name('inscripciones');
+    });
 });
