@@ -16,7 +16,7 @@ const closeModal = () => {
 <template>
     <section id="bases">
         <div
-            class="grid md:grid-cols-2 gap-8 bg-blue-900/25 backdrop-blur-sm p-10 xs:mx-2 rounded-3xl border border-white/30 hover:shadow-blue-500/20 hover:shadow-xl mt-[-30px] 2xl:mt-[-100px]">
+            class="grid md:grid-cols-2 gap-8 bg-blue-900/25 backdrop-blur-sm p-10 xs:mx-2 rounded-3xl border border-white/30 hover:shadow-blue-500/20 hover:shadow-xl mt-[-30px] 2xl:mt-[-100px] mx-2">
             <div class="items-center content-center">
                 <h2 class="text-2xl font-bold mb-2 xs:text-center md:text-left">OBJETIVO</h2>
                 <p class="text-sm italic">

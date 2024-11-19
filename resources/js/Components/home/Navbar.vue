@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 import { Link } from "@inertiajs/vue3";
-import { Menu, X, Terminal } from "lucide-vue-next";
+import { Menu, X, CodeXml } from "lucide-vue-next";
 
 const isMenuOpen = ref(false);
 const isScrolled = ref(false);
@@ -53,9 +53,9 @@ onUnmounted(() => {
         <div class="flex items-center justify-between relative">
             <!-- Logo (centered) -->
             <a href="#inicio" class="flex hover:scale-105 transition-transform font-semibold text-2xl">
-                <div class="flex items-center content-center">
+                <div class="flex items-center content-center gap-2 ml-2">
                     PAISI
-                    <Terminal />
+                    <CodeXml />
                 </div>
             </a>
 
@@ -81,12 +81,12 @@ onUnmounted(() => {
             <div class="hidden lg:block">
                 <Link :href="$page.props.auth.user ? '/panel' : '/login'"
                     class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
-                {{ $page.props.auth.user ? 'Home' : 'Inscribete ya!' }}
+                {{ $page.props.auth.user ? 'Home' : '¡ Inscribete ya !' }}
                 </Link>
             </div>
 
             <!-- Hamburger Menu (Mobile) -->
-            <button @click="toggleMenu" class="lg:hidden p-2 rounded-md hover:bg-gray-800/40">
+            <button @click="toggleMenu" class="lg:hidden p-2 rounded-md hover:bg-gray-800/40 mr-2">
                 <Menu v-if="!isMenuOpen" class="h-6 w-6 text-white" />
                 <X v-else class="h-6 w-6 text-white" />
             </button>
@@ -112,7 +112,7 @@ onUnmounted(() => {
                 <div class="flex justify-center">
                     <Link :href="$page.props.auth.user ? '/panel' : '/login'"
                         class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
-                    {{ $page.props.auth.user ? 'Home' : '!Inscribete ya!' }}
+                    {{ $page.props.auth.user ? 'Home' : '¡ Inscribete ya !' }}
                     </Link>
                 </div>
             </div>
