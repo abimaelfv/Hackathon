@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Personas;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -58,6 +59,35 @@ class PersonasController extends Controller
             ]);
         } catch (\Throwable $th) {
             return redirect()->back()->withErrors(['error' => $th->getMessage()]);
+        }
+    }
+
+    public function buscar($codigo)
+    {
+        try {
+            if (isset($codigo)) {
+                $dni = trim($codigo);
+
+                $usuario = User::where('codigo', $dni)->where('estado', 1)
+                    ->select('codigo', 'name', 'apellidos')
+                    ->first();
+                if (!$usuario) {
+                    $usuario = Personas::where('per_codigo', $dni)->where('per_estado', 1)
+                        ->select('per_codigo as codigo', 'per_nombres as name', 'per_apellidos as apellidos')
+                        ->first();
+                }
+                if ($usuario) {
+                    $response = ['status' => true, 'data' => $usuario];
+                } else {
+                    throw new \Exception('No encontrado. Solicite al estudiante que se registre.');
+                }
+            } else {
+                throw new \Exception('Datos requeridos incompletos.');
+            }
+            return response()->json($response);
+        } catch (\Exception $e) {
+            $response = ['status' => false, 'msg' => $e->getMessage()];
+            return response()->json($response);
         }
     }
 }

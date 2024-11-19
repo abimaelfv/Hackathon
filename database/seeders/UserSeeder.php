@@ -13,7 +13,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'name' => 'ABIMAEL FERNANDEZ VENTURA',
+            'codigo' => '2019110516',
+            'name' => 'ABIMAEL EPIFANIO',
+            'apellidos' => 'FERNANDEZ VENTURA',
             'email' => '2019110516@udh.edu.pe',
         ]);
     }

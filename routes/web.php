@@ -41,8 +41,14 @@ Route::middleware('auth')->controller(CompletarRegistro::class)->group(function 
 Route::middleware('auth')->controller(PersonasController::class)->group(function () {
     Route::get('/cargar-registro', 'create')->name('cargar.registro');
     Route::post('/cargar-registro', 'importarExcel');
+    Route::get('/personas/buscar/{codigo}', 'buscar')->name('personas.buscar');
 });
 
 Route::middleware('auth')->controller(InscripcionController::class)->group(function () {
     Route::get('/inscripcion', 'incripcion')->name('incripcion');
+    Route::post('/agregar-miembro', 'addMiembro')->name('agregar.miembro');
+    Route::delete('/eliminar-miembro/{id}', 'deleteMiembro')->name('eliminar.miembro');
+    Route::post('/actualizar-inscripcion', 'upInscripcion')->name('actualizar.incripcion');
+    Route::get('/validar-inscripcion/{ins_id}', 'validar')->name('validar.incripcion');
+    Route::post('/confirmar-inscripcion/{ins_id}', 'confirmar')->name('confirmar.incripcion');
 });
