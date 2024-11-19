@@ -32,7 +32,8 @@ class InscripcionController extends Controller
         return Inertia::render('Inscripcion', compact('inscripcion'));
     }
 
-    public function inscripciones(){
+    public function inscripciones()
+    {
 
         $inscripciones = Inscripciones::where('ins_estado', 1)->get();
         return Inertia::render('Inscripciones/Index', compact('inscripciones'));
@@ -87,7 +88,7 @@ class InscripcionController extends Controller
             // Si creo su inscripcion lo borro
             if ($integrante) {
                 $incripcion = Inscripciones::where('user_id', $miembro_id)->first();
-                if ($incripcion) {
+                if ($incripcion && $incripcion->user_id != $miembro_id) {
                     $incripcion->integrantes()->delete();
                     $incripcion->delete();
                 }
