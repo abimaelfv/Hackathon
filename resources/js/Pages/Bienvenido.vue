@@ -7,6 +7,7 @@ import Sponsors from '../Components/home/Sponsors.vue'
 import Foot from '../Components/home/Foot.vue'
 import ButtonToTop from '../Components/home/ButtonToTop.vue'
 import Location from '@/Components/home/Location.vue'
+import Awards from '@/Components/home/Awards.vue'
 </script>
 
 <template>
@@ -22,9 +23,9 @@ import Location from '@/Components/home/Location.vue'
             <!-- Hero -->
             <Hero />
 
-            <!-- Agenda -->
-            <Package />
-
+            <!-- Premios -->
+            <Awards />
+            
             <!-- Ubicacion -->
             <Location />
 
