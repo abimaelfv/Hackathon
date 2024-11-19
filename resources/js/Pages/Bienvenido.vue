@@ -6,6 +6,7 @@ import Package from '../Components/home/Package.vue'
 import Sponsors from '../Components/home/Sponsors.vue'
 import Foot from '../Components/home/Foot.vue'
 import ButtonToTop from '../Components/home/ButtonToTop.vue'
+import Location from '@/Components/home/Location.vue'
 </script>
 
 <template>
@@ -23,6 +24,9 @@ import ButtonToTop from '../Components/home/ButtonToTop.vue'
 
             <!-- Agenda -->
             <Package />
+
+            <!-- Ubicacion -->
+            <Location />
 
             <!-- Auspiciadores -->
             <Sponsors />

@@ -15,9 +15,12 @@ const props = defineProps({
 
 const form = useForm({
     _method: "PUT",
+    documento: props.user.documento,
     name: props.user.name,
+    apellidos: props.user.apellidos,
     email: props.user.email,
     phone: props.user.phone,
+    genero: props.user.genero ?? '',
     photo: null,
 });
 
@@ -88,127 +91,99 @@ const clearPhotoFileInput = () => {
 
         <template #form>
             <!-- Profile Photo -->
-            <div
-                v-if="$page.props.jetstream.managesProfilePhotos"
-                class="col-span-6 sm:col-span-4"
-            >
+            <div v-if="$page.props.jetstream.managesProfilePhotos" class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
-                <input
-                    id="photo"
-                    ref="photoInput"
-                    type="file"
-                    class="hidden"
-                    @change="updatePhotoPreview"
-                />
+                <input id="photo" ref="photoInput" type="file" class="hidden" @change="updatePhotoPreview" />
 
                 <!-- Current Profile Photo -->
                 <div v-show="!photoPreview" class="mt-2">
-                    <img
-                        :src="user.profile_photo_url"
-                        :alt="user.name"
-                        class="rounded-full h-20 w-20 object-cover"
-                    />
+                    <img :src="user.profile_photo_url" :alt="user.name" class="rounded-full h-20 w-20 object-cover" />
                 </div>
 
                 <!-- New Profile Photo Preview -->
                 <div v-show="photoPreview" class="mt-2">
-                    <span
-                        class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
-                        :style="
-                            'background-image: url(\'' + photoPreview + '\');'
-                        "
-                    />
+                    <span class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center" :style="'background-image: url(\'' + photoPreview + '\');'
+                        " />
                 </div>
 
-                <SecondaryButton
-                    class="mt-2 me-2"
-                    type="button"
-                    @click.prevent="selectNewPhoto"
-                >
+                <SecondaryButton class="mt-2 me-2" type="button" @click.prevent="selectNewPhoto">
                     {{ $t('Cargar nueva foto') }}
                 </SecondaryButton>
 
-                <SecondaryButton
-                    v-if="user.profile_photo_path"
-                    type="button"
-                    class="mt-2"
-                    @click.prevent="deletePhoto"
-                >
+                <SecondaryButton v-if="user.profile_photo_path" type="button" class="mt-2" @click.prevent="deletePhoto">
                     {{ $t("Remove Photo") }}
                 </SecondaryButton>
 
                 <InputError :message="form.errors.photo" class="mt-2" />
             </div>
 
-            <!-- Name -->
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-3">
+                <InputLabel for="documento" :value="$t('DNI')" />
+                <TextInput id="documento" v-model="form.documento" type="text" class="mt-1 block w-full" required
+                    autocomplete="off" />
+                <InputError :message="form.errors.documento" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-3 gap-0"/>
+
+            <div class="col-span-6 sm:col-span-3">
                 <InputLabel for="name" :value="$t('Name')" />
-                <TextInput
-                    id="name"
-                    v-model="form.name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="name"
-                />
+                <TextInput id="name" v-model="form.name" type="text" class="mt-1 block w-full" required
+                    autocomplete="off" />
                 <InputError :message="form.errors.name" class="mt-2" />
             </div>
 
+            <div class="col-span-6 sm:col-span-3">
+                <InputLabel for="apellidos" :value="$t('Apellidos')" />
+                <TextInput id="apellidos" v-model="form.apellidos" type="text" class="mt-1 block w-full" required
+                    autocomplete="off" />
+                <InputError :message="form.errors.apellidos" class="mt-2" />
+            </div>
+
             <!-- Phone -->
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-3">
                 <InputLabel for="phone" :value="$t('Phone')" />
-                <TextInput
-                    id="phone"
-                    v-model="form.phone"
-                    type="text"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="phone"
-                />
+                <TextInput id="phone" v-model="form.phone" type="text" class="mt-1 block w-full" required
+                    autocomplete="phone" />
                 <InputError :message="form.errors.phone" class="mt-2" />
             </div>
 
+            <div class="col-span-6 sm:col-span-3">
+                <InputLabel for="genero" :value="$t('Género')" />
+                <select class="block w-full border-gray-300 focus:border-udh_1 focus:ring-udh_1 rounded-md shadow-sm"
+                    required v-model="form.genero">
+                    <option value="" disabled selected hidden>Seleccione...</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                </select>
+                <InputError class="mt-2" :message="form.errors.genero" />
+            </div>
+
             <!-- Email -->
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-6">
                 <InputLabel for="email" :value="$t('Email')" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full bg-gray-100 text-gray-700"
-                    required
-                    autocomplete="username"
-                />
+                <TextInput id="email" v-model="form.email" type="email"
+                    class="mt-1 block w-full bg-gray-100 text-gray-700" required autocomplete="username" />
                 <InputError :message="form.errors.email" class="mt-2" />
 
-                <div
-                    v-if="
-                        $page.props.jetstream.hasEmailVerification &&
-                        user.email_verified_at === null
-                    "
-                >
+                <div v-if="
+                    $page.props.jetstream.hasEmailVerification &&
+                    user.email_verified_at === null
+                ">
                     <p class="text-sm mt-2">
                         {{ $t("Your email address is unverified.") }}
 
-                        <Link
-                            :href="route('verification.send')"
-                            method="post"
-                            as="button"
+                        <Link :href="route('verification.send')" method="post" as="button"
                             class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            @click.prevent="sendEmailVerification"
-                        >
-                            {{
-                                $t(
-                                    "Click here to re-send the verification email."
-                                )
-                            }}
+                            @click.prevent="sendEmailVerification">
+                        {{
+                            $t(
+                                "Click here to re-send the verification email."
+                            )
+                        }}
                         </Link>
                     </p>
 
-                    <div
-                        v-show="verificationLinkSent"
-                        class="mt-2 font-medium text-sm text-green-600"
-                    >
+                    <div v-show="verificationLinkSent" class="mt-2 font-medium text-sm text-green-600">
                         {{
                             $t(
                                 "A new verification link has been sent to your email address."
@@ -224,10 +199,7 @@ const clearPhotoFileInput = () => {
                 {{ $t("Saved.") }}
             </ActionMessage>
 
-            <PrimaryButton
-                :class="{ 'opacity-25': form.processing }"
-                :disabled="form.processing"
-            >
+            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                 {{ $t("Save") }}
             </PrimaryButton>
         </template>
