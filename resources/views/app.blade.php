@@ -10,6 +10,10 @@
         html {
             scroll-behavior: smooth;
         }
+
+        #bases {
+            scroll-margin-top: 200px;
+        }
     </style>
 
     <!-- Fonts -->
