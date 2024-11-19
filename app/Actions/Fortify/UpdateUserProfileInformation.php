@@ -20,7 +20,10 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         Validator::make(
             $input,
             [
+                'documento' => ['required', 'integer', 'digits:8'],
                 'name' => ['required', 'string', 'max:255'],
+                'apellidos' => ['required', 'string', 'max:255'],
+                'genero' => ['required'],
                 'email' => ['required', 'email', 'ends_with:udh.edu.pe', 'max:255', Rule::unique('users')->ignore($user->id)],
                 'phone' => ['required', 'integer', 'digits:9'],
                 'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
@@ -41,9 +44,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
+                'documento' => $input['documento'],
                 'name' => $input['name'],
+                'apellidos' => $input['apellidos'],
                 'email' => $input['email'],
                 'phone' => $input['phone'],
+                'genero' => $input['genero'],
             ])->save();
         }
     }
