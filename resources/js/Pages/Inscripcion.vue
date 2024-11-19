@@ -303,7 +303,7 @@ const confirmar = (id) => {
             <template #content>
                 <hr>
                 <div class="pt-4"
-                    v-if="dataConfirmar.equipo && dataConfirmar.categoria && dataConfirmar.integrantes == 4">
+                    v-if="dataConfirmar.equipo && dataConfirmar.categoria && dataConfirmar.lider && dataConfirmar.integrantes == 4">
                     <p class="mb-3">¿Estas seguro de confirmar la inscripción?</p>
 
                     <p>Ten en cuenta que, una vez que confirmes, <b>no podrás realizar modificaciones</b>.</p>
@@ -325,6 +325,9 @@ const confirmar = (id) => {
                         <li v-if="dataConfirmar.integrantes != 4" class="mb-2">
                             Asegúrate de que tu equipo tenga 4 integrantes.
                         </li>
+                        <li v-if="dataConfirmar.integrantes != 4" class="mb-2">
+                            El propietario del equipo no está en los integrantes.
+                        </li>
                     </ul>
                     <p class="mt-3">Agradecemos tu colaboración.</p>
                 </div>
@@ -337,7 +340,7 @@ const confirmar = (id) => {
                 </SecondaryButton>
 
                 <PrimaryButton class="ms-3"
-                    v-if="dataConfirmar.equipo && dataConfirmar.categoria && dataConfirmar.integrantes == 4"
+                    v-if="dataConfirmar.equipo && dataConfirmar.categoria && dataConfirmar.lider && dataConfirmar.integrantes == 4"
                     @click="confirmar(inscripcion.ins_id)">
                     {{ $t("Confirmar") }}
                 </PrimaryButton>
