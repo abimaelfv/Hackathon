@@ -81,7 +81,7 @@ onUnmounted(() => {
             <div class="hidden lg:block">
                 <Link :href="$page.props.auth.user ? '/panel' : '/login'"
                     class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
-                {{ $page.props.auth.user ? 'Home' : '¡ Inscribete ya !' }}
+                {{ $page.props.auth.user ? 'Ir al panel' : '¡ Postula ya !' }}
                 </Link>
             </div>
 
@@ -109,12 +109,12 @@ onUnmounted(() => {
                     class="px-4 py-2 transition-colors cursor-pointer">
                     Ubicación
                 </a>
-                <div class="flex justify-center">
+                <!-- <div class="flex justify-center">
                     <Link :href="$page.props.auth.user ? '/panel' : '/login'"
                         class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
-                    {{ $page.props.auth.user ? 'Home' : '¡ Inscribete ya !' }}
+                    {{ $page.props.auth.user ? 'Ir al panel' : '¡ Inscribete ya !' }}
                     </Link>
-                </div>
+                </div> -->
             </div>
         </div>
     </nav>
