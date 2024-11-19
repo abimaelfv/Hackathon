@@ -1,9 +1,20 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import BasesPDF from './BasesPDF.vue';
+
+const showModal = ref(false);
+
+const openModal = () => {
+    showModal.value = true;
+};
+
+const closeModal = () => {
+    showModal.value = false;
+};
 </script>
+
 <template>
     <section id="bases">
-        <!-- Generar tickets-->
         <div
             class="grid md:grid-cols-2 gap-8 bg-red-900/25 backdrop-blur-sm p-10 xs:mx-2 rounded-3xl border border-white/30 hover:shadow-red-500/20 hover:shadow-xl mt-[-30px] 2xl:mt-[-100px]">
             <div class="items-center content-center">
@@ -19,14 +30,16 @@ import { Link } from '@inertiajs/vue3';
                     <h3 class="text-2xl font-bold text-black lg:text-base">Hackaton 2024 UDH</h3>
                     <p class="py-3 min-h-14 text-black">¡Inscríbete ya y sé parte del cambio!</p>
                     <div class="flex justify-center">
-                        <Link href="../../../../public/pdf/Hackathon 2024 - Bases_.pdf"
+                        <button @click="openModal"
                             class="block w-full text-center px-4 py-2 rounded-lg bg-[#991B1BCC] text-white hover:bg-red-800 transition">
-                        Ver bases
-                        </Link>
+                            Ver bases
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <BasesPDF v-if="showModal" :open="showModal" :close="closeModal" />
     </section>
 </template>
 
@@ -49,8 +62,11 @@ import { Link } from '@inertiajs/vue3';
     animation: float 6s ease-in-out infinite;
 }
 
-#img_hero {
-    mask-image: linear-gradient(to right, transparent, black 50%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 80%, transparent);
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 50;
 }
 </style>
