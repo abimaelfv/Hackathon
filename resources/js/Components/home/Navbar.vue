@@ -16,6 +16,7 @@ const updateActiveSection = () => {
         { id: "#inicio", element: document.querySelector("#inicio") },
         { id: "#bases", element: document.querySelector("#bases") },
         { id: "#premios", element: document.querySelector("#premios") },
+        { id: "#location", element: document.querySelector("#location") },
     ];
 
     for (const section of sections) {
@@ -69,15 +70,18 @@ onUnmounted(() => {
                     class="transition-colors cursor-pointer">
                     Premios
                 </a>
-                <a href="https://maps.app.goo.gl/86TGP1KvfbczNvyb8" target="_blank"
-                    class="hover:text-red-300 transition-colors cursor-pointer">Ubicación</a>
+                <a href="#location"
+                    :class="activeSection === '#location' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                    class="transition-colors cursor-pointer">
+                    Ubicación
+                </a>
             </div>
 
             <!-- Button (Right) -->
             <div class="hidden lg:block">
                 <Link :href="$page.props.auth.user ? '/panel' : '/login'"
                     class="block w-full text-center px-4 py-2 rounded-lg bg-[#991B1BCC] text-white hover:bg-red-800 transition">
-                {{ $page.props.auth.user ? 'Home' : 'Iniciar sesión' }}
+                {{ $page.props.auth.user ? 'Home' : 'Inscribete ya!' }}
                 </Link>
             </div>
 
@@ -100,14 +104,15 @@ onUnmounted(() => {
                     class="px-4 py-2 transition-colors cursor-pointer">
                     Premios
                 </a>
-                <a href="https://maps.app.goo.gl/86TGP1KvfbczNvyb8" target="_blank"
-                    class="px-4 py-2 hover:text-red-300 transition-colors cursor-pointer">
+                <a href="#location"
+                    :class="activeSection === '#location' ? 'text-red-300 font-bold' : 'hover:text-red-300'"
+                    class="px-4 py-2 transition-colors cursor-pointer">
                     Ubicación
                 </a>
                 <div class="flex justify-center">
                     <Link :href="$page.props.auth.user ? '/panel' : '/login'"
                         class="block w-full text-center px-4 py-2 rounded-lg bg-[#991B1BCC] text-white hover:bg-red-800 transition">
-                    {{ $page.props.auth.user ? 'Home' : 'Iniciar sesión' }}
+                    {{ $page.props.auth.user ? 'Home' : 'Inscribete ya!' }}
                     </Link>
                 </div>
             </div>

@@ -19,9 +19,9 @@ import { Link } from '@inertiajs/vue3';
                     <h3 class="text-2xl font-bold text-black lg:text-base">Hackaton 2024 UDH</h3>
                     <p class="py-3 min-h-14 text-black">¡Inscríbete ya y sé parte del cambio!</p>
                     <div class="flex justify-center">
-                        <Link :href="$page.props.auth.user ? '/panel' : '/login'"
+                        <Link href="../../../../public/pdf/Hackathon 2024 - Bases_.pdf"
                             class="block w-full text-center px-4 py-2 rounded-lg bg-[#991B1BCC] text-white hover:bg-red-800 transition">
-                        {{ $page.props.auth.user ? 'Ver' : 'Inscribete ya!' }}
+                        Ver bases
                         </Link>
                     </div>
                 </div>
