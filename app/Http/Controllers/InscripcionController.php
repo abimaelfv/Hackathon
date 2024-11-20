@@ -34,7 +34,7 @@ class InscripcionController extends Controller
 
     public function inscripciones()
     {
-
+        $this->authorize('inscripciones');
         $inscripciones = Inscripciones::where('ins_estado', 1)->get();
         return Inertia::render('Inscripciones/Index', compact('inscripciones'));
     }

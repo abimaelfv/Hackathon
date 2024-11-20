@@ -325,7 +325,7 @@ const confirmar = (id) => {
                         <li v-if="dataConfirmar.integrantes != 4" class="mb-2">
                             Asegúrate de que tu equipo tenga 4 integrantes.
                         </li>
-                        <li v-if="dataConfirmar.integrantes != 4" class="mb-2">
+                        <li v-if="dataConfirmar.integrantes == false" class="mb-2">
                             El propietario del equipo no está en los integrantes.
                         </li>
                     </ul>
