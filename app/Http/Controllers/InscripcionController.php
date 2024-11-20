@@ -171,6 +171,7 @@ class InscripcionController extends Controller
     {
         $inscripcion = Inscripciones::find($id);
         $inscripcion->ins_estado = 1;
+        $inscripcion->ins_fecha = now();
         $inscripcion->save();
         return redirect()->back();
     }

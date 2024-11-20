@@ -67,7 +67,7 @@ const detalles = (id) => {
                                         {{ inscripcion.ins_categoria }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        {{ formatDateTime(inscripcion.ins_created) }}
+                                        {{ formatDateTime(inscripcion.ins_fecha) }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         <button class="bg-udh_1 text-white py-1 px-2 rounded text-sm"
