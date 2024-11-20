@@ -34,7 +34,7 @@ import { Link } from "@inertiajs/vue3";
                     <div
                         class="flex flex-wrap items-center justify-center gap-4 text-sm sm:text-base md:text-lg animate-fade-in-up font-semibold">
                         <span class="w-autotext-center bg-blue-200/5 rounded-lg px-4 sm:px-3 py-2  backdrop-blur-sm">
-                            Noviembre 27
+                            Noviembre 26
                         </span>
                         <span class="w-autotext-center bg-blue-200/5 rounded-lg px-4 sm:px-3 py-2  backdrop-blur-sm">
                             Biblioteca UDH

@@ -1,8 +1,10 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import BasesPDF from './BasesPDF.vue';
 
 const showModal = ref(false);
+const appUrl = import.meta.env.VITE_APP_URL;
+const isMobile = ref(false);
 
 const openModal = () => {
     showModal.value = true;
@@ -11,6 +13,16 @@ const openModal = () => {
 const closeModal = () => {
     showModal.value = false;
 };
+
+const checkIfMobile = () => {
+    isMobile.value = window.innerWidth <= 768;
+};
+
+onMounted(() => {
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+});
+
 </script>
 
 <template>
@@ -30,10 +42,15 @@ const closeModal = () => {
                     <h3 class="text-2xl font-bold text-black lg:text-base">Hackaton 2024 UDH</h3>
                     <p class="py-3 min-h-14 text-black">¡Postula ya y sé parte del cambio!</p>
                     <div class="flex justify-center">
-                        <button @click="openModal"
+                        <button @click="openModal" v-if="!isMobile"
                             class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
                             Ver bases
                         </button>
+                        <a v-if="isMobile" :href="`${appUrl}/pdf/Hackathon2024-Bases.pdf`"
+                            download="Hackathon2024-Bases.pdf"
+                            class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
+                            Ver bases mob
+                        </a>
                     </div>
                 </div>
             </div>
