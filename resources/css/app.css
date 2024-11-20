@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* definiendo fuentes */
+@font-face {
+    font-family: 'DameronConItal';
+    src: url('/fonts/dameroncondital.ttf') format('truetype');
+}
+
 [x-cloak] {
     display: none;
 }

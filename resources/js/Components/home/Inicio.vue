@@ -15,16 +15,16 @@ import { Link } from "@inertiajs/vue3";
             <!-- Content -->
             <div class="relative min-h-[70vh] flex items-center justify-center">
                 <div class="text-center space-y-10 px-4">
-                    <div class="font-semibold lg:text-3xl text-xl animate-fade-in-down font-epilogue">
-                        <p> 32 aniversario</p>
+                    <div class="font-bold lg:text-2xl text-xl animate-fade-in-down font-epilogue">
+                        <p>32 aniversario</p>
                         <span>Ingeniería de sistemas e informática</span>
                     </div>
 
-                    <h1 class="text-6xl md:text-8xl font-bold text-white animate-fade-in-up float-animation font-russo">
+                    <h1 class="text-6xl md:text-8xl font-bold text-white animate-fade-in-up float-animation font-dameron">
                         Hackathon
                     </h1>
 
-                    <div class="flex justify-end items-center content-center flex-col ">
+                    <div class="flex justify-end items-center content-center flex-col font-semibold">
                         <Link :href="$page.props.auth.user ? '/panel' : '/login'"
                             class="w-60 sm:w-[220px] md:w-[220px] text-center bg-blue-900 px-4 sm:px-6 py-3 rounded-xl backdrop-blur-sm border border-none hover:shadow-blue-500/20 hover:shadow-lg">
                         {{ $page.props.auth.user ? 'Ir al panel' : '¡ Postula ya !' }}
