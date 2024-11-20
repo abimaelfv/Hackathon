@@ -16,9 +16,9 @@ import CardAward from '@/Components/home/CardAward.vue'
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
                     <!-- cards -->
                     <CardAward class="-rotate-12 bg-blue-600/15 hover:shadow-blue-500/30 z-10" label="Categoría A"
-                        img="/img/pinguinobebe.webp" money="400" currency="PEN" />
+                        img="/img/pinguinobebe.webp" money="300" currency="PEN" />
                     <CardAward class="rotate-12 bg-blue-600/15 hover:shadow-blue-500/30" label="Categoría B"
-                        img="/img/pinguinoadulto.webp" money="300" currency="PEN" />
+                        img="/img/pinguinoadulto.webp" money="400" currency="PEN" />
                 </div>
             </div>
 
