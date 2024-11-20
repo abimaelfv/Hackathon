@@ -92,33 +92,23 @@ const submit = () => {
                 class="mt-4"
             >
                 <label for="terms">
-                    <div class="flex items-start">
+                    <div class="flex items-center">
                         <Checkbox
                             id="terms"
                             v-model:checked="form.terms"
                             name="terms"
-                            class="mt-1"
                             required
                         />
 
                         <span class="ml-3 text-sm text-gray-600">
-                            He leído y acepto los
+                            He leído y acepto las
                             <a
-                                :href="route('terms.show')"
+                                href="/pdf/Hackathon2024-Bases.pdf"
                                 target="_blank"
                                 class="hover:underline hover:text-udh_1 decoration-2 font-semibold"
                             >
-                                Términos de uso
-                            </a>
-                            y la
-                            <a
-                                :href="route('policy.show')"
-                                target="_blank"
-                                class="hover:underline hover:text-udh_1 decoration-2 font-semibold"
-                            >
-                                Política de Privacidad
-                            </a>
-                            .
+                                Bases del hackathon UDH
+                            </a>.
                         </span>
                     </div>
                     <InputError class="mt-2" :message="form.errors.terms" />
