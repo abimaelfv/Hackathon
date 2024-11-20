@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 import { Link } from "@inertiajs/vue3";
-import { Menu, X, CodeXml } from "lucide-vue-next";
+import { Menu, X, CodeXml, Github, InstagramIcon } from "lucide-vue-next";
 
 const isMenuOpen = ref(false);
 const isScrolled = ref(false);
@@ -61,6 +61,10 @@ onUnmounted(() => {
 
             <!-- Center Menu -->
             <div class="hidden lg:flex items-center gap-12 font-semibold mx-auto">
+                <a href="#inicio" :class="activeSection === '#inicio' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
+                    class="transition-colors cursor-pointer">
+                    Inicio
+                </a>
                 <a href="#bases" :class="activeSection === '#bases' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
                     class="transition-colors cursor-pointer">
                     Bases
@@ -79,10 +83,9 @@ onUnmounted(() => {
 
             <!-- Button (Right) -->
             <div class="hidden lg:block">
-                <Link :href="$page.props.auth.user ? '/panel' : '/login'"
-                    class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
-                {{ $page.props.auth.user ? 'Ir al panel' : '¡ Postula ya !' }}
-                </Link>
+                <a href="https://github.com/Transformacion-Digital-UDH" target="_blank">
+                    <Github class="ml-8 cursor-pointer hover:stroke-blue-400" />
+                </a>
             </div>
 
             <!-- Hamburger Menu (Mobile) -->
@@ -95,6 +98,10 @@ onUnmounted(() => {
         <!-- Mobile Menu -->
         <div v-if="isMenuOpen" class="lg:hidden mt-4 py-4 px-2 bg-black/80 backdrop-blur-lg rounded-xl text-center">
             <div class="flex flex-col gap-4">
+                <a href="#bases" :class="activeSection === '#bases' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
+                    class="px-4 py-2 transition-colors cursor-pointer">
+                    Bases
+                </a>
                 <a href="#bases" :class="activeSection === '#bases' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
                     class="px-4 py-2 transition-colors cursor-pointer">
                     Bases
