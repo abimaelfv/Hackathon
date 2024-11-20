@@ -307,7 +307,7 @@ const confirmar = (id) => {
                     <p class="mb-3">¿Estas seguro de confirmar la inscripción?</p>
 
                     <p>Ten en cuenta que, una vez que confirmes, <b>no podrás realizar modificaciones</b>.</p>
-                    <p>Además, recuerda que tu equipo debe contar, como mínimo, con <b>una mujer</b>; de lo contrario,
+                    <p>Además, recuerda que tu equipo debe contar, como mínimo, con <b>una dama</b>; de lo contrario,
                         <b>serás descalificado</b>.
                     </p>
                     <br>
