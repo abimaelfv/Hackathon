@@ -16,6 +16,10 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Roboto', ...defaultTheme.fontFamily.sans],
+                dameron: ['DameronConItal', 'sans-serif'],
+                babapro: ['Babapro', 'sans-serif'],
+                abyssal: ['Abyssal', 'sans-serif'],
+                dastreets: ['Dastreets', 'sans-serif'],
             },
             colors: {
                 udh_1: "#2EBAA0",
