@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('ins_categoria', 20)->nullable();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->integer('ins_estado')->unsigned()->default(2); // 2 = Pendiente / 1 = Confirmado
+            $table->timestamp('ins_fecha')->nullable();
             $table->timestamp('ins_created')->useCurrent();
             $table->timestamp('ins_updated')->useCurrent()->useCurrentOnUpdate();
         });
