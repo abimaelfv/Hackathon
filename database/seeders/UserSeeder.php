@@ -18,5 +18,12 @@ class UserSeeder extends Seeder
             'apellidos' => 'FERNANDEZ VENTURA',
             'email' => '2019110516@udh.edu.pe',
         ])->assignRole('ADMINISTRADOR');
+
+        User::factory()->create([
+            'codigo' => 'aldo.ramirez',
+            'name' => 'ALDO ENRIQUE',
+            'apellidos' => 'RAMIREZ CHAUPIS',
+            'email' => 'aldo.ramirez@udh.edu.pe',
+        ])->assignRole('ADMINISTRADOR');
     }
 }
