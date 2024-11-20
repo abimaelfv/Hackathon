@@ -19,6 +19,6 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'panel'])->syncRoles($admin);
         Permission::create(['name' => 'inscripcion'])->syncRoles($estudiante);
         Permission::create(['name' => 'datos'])->syncRoles($admin);
-        Permission::create(['name' => 'incripciones'])->syncRoles($admin);
+        Permission::create(['name' => 'inscripciones'])->syncRoles($admin);
     }
 }
