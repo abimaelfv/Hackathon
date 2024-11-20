@@ -32,6 +32,13 @@ class InscripcionController extends Controller
         return Inertia::render('Inscripcion', compact('inscripcion'));
     }
 
+    public function inscripciones()
+    {
+        $this->authorize('inscripciones');
+        $inscripciones = Inscripciones::where('ins_estado', 1)->get();
+        return Inertia::render('Inscripciones/Index', compact('inscripciones'));
+    }
+
     public function addMiembro(Request $request): RedirectResponse
     {
         $request->validate([
@@ -79,12 +86,10 @@ class InscripcionController extends Controller
                 ]
             );
             // Si creo su inscripcion lo borro
-            if ($integrante) {
-                $incripcion = Inscripciones::where('user_id', $miembro_id)->first();
-                if ($incripcion) {
-                    $incripcion->integrantes()->delete();
-                    $incripcion->delete();
-                }
+            $incripcion = Inscripciones::where('user_id', $miembro_id)->first();
+            if ($incripcion && $incripcion->ins_id != $ins_id) {
+                $incripcion->integrantes()->delete();
+                $incripcion->delete();
             }
             DB::commit();
         } catch (\Throwable $th) {
@@ -139,6 +144,8 @@ class InscripcionController extends Controller
                 if (!$inscripcion) {
                     throw new \Exception('Incripcion no encontrado.');
                 }
+                $existLider = Integrantes::where('user_id', $inscripcion->user_id)->exists();
+
                 $equipo = empty($inscripcion->ins_equipo) ? false : true;
                 $categoria = empty($inscripcion->ins_categoria) ? false : true;
 
@@ -147,6 +154,7 @@ class InscripcionController extends Controller
                     'status' => true,
                     'equipo' => $equipo,
                     'categoria' => $categoria,
+                    'lider' => $existLider,
                     'integrantes' => count($participantes)
                 ];
             } else {
@@ -163,6 +171,7 @@ class InscripcionController extends Controller
     {
         $inscripcion = Inscripciones::find($id);
         $inscripcion->ins_estado = 1;
+        $inscripcion->ins_fecha = now();
         $inscripcion->save();
         return redirect()->back();
     }
