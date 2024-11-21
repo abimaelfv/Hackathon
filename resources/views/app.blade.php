@@ -4,8 +4,27 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ asset('icon.ico') }}">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <meta name="description"
+    content="Sistem Fest - Hackaton 2024 UDH">
+    <meta name="keywords"
+        content="UDH, Hackathon 2024, Hackathon, Hackaton, Hackaton 2024, Hackaton 2024 UDH">
+    <meta name="author" content="Laboratorio de Transformacion Digital">
+    <meta name="theme-color" content="#2EBAA0">
+
+    <!-- Open Graph -->
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="{{ config('app.name', 'Hackaton UDH') }}">
+    <meta property="og:title" content="{{ config('app.name') }}">
+    <meta property="og:description"
+        content="Sistem Fest - Hackaton 2024 UDH">
+    <meta property="og:image" content="{{ asset('og_image.jpg') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+
     <style>
         html {
             scroll-behavior: smooth;
