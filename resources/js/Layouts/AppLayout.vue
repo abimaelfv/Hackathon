@@ -63,6 +63,11 @@ const logout = () => {
                                     {{ $t('Datos') }}
                                 </NavLink>
                             </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-if="canPermiso($page.props.auth.permisos, 'inscripciones')">
+                                <NavLink :href="route('inscripciones')" :active="route().current('inscripciones')">
+                                    {{ $t('Inscripcciones') }}
+                                </NavLink>
+                            </div>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -210,8 +215,17 @@ const logout = () => {
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('panel')" :active="route().current('panel')">
+                        <ResponsiveNavLink :href="route('panel')" :active="route().current('panel')" v-if="canPermiso($page.props.auth.permisos, 'panel')">
                             {{ $t('Dashboard') }}
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('incripcion')" :active="route().current('incripcion')" v-if="canPermiso($page.props.auth.permisos, 'inscripcion')">
+                            {{ $t('Inscripción') }}
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('cargar.registro')" :active="route().current('cargar.registro')" v-if="canPermiso($page.props.auth.permisos, 'panel')">
+                            {{ $t('Datos') }}
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('inscripciones')" :active="route().current('inscripciones')" v-if="canPermiso($page.props.auth.permisos, 'inscripciones')">
+                            {{ $t('Inscripciones') }}
                         </ResponsiveNavLink>
                     </div>
 

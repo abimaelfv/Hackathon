@@ -46,7 +46,7 @@ onMounted(() => {
                             class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475da] text-white hover:bg-blue-800 transition">
                             Ver bases
                         </button>
-                        <a v-if="isMobile" :href="`${appUrl}/pdf/Hackathon2024-Bases.pdf`"
+                        <a v-if="isMobile" :href="`/pdf/Hackathon2024-Bases.pdf`"
                             download="Hackathon2024-Bases.pdf"
                             class="block w-full text-center px-4 py-2 rounded-lg bg-[#113475cc] text-white hover:bg-blue-800 transition">
                             Ver bases
