@@ -20,7 +20,7 @@
     <meta property="og:title" content="{{ config('app.name') }}">
     <meta property="og:description"
         content="Sistem Fest - Hackaton 2024 UDH">
-    <meta property="og:image" content="{{ asset('og_image.jpg') }}">
+    <meta property="og:image" content="{{ asset('/img/og_image.jpg') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:type" content="website">
