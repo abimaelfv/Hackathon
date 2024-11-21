@@ -20,21 +20,50 @@ import { Link } from "@inertiajs/vue3";
                         <span>Ingeniería de sistemas e informática</span>
                     </div>
 
-                    <h1 class="text-6xl md:text-8xl font-bold text-white animate-fade-in-up float-animation font-dameron">
+                    <h1
+                        class="text-6xl md:text-8xl font-bold text-white animate-fade-in-up float-animation font-dameron">
                         Hackathon
                     </h1>
 
                     <div class="flex justify-end items-center content-center flex-col font-semibold">
-                        <Link :href="$page.props.auth.user ? '/panel' : '/login'"
-                            class="w-60 sm:w-[220px] md:w-[220px] text-center bg-blue-900 px-4 sm:px-6 py-3 rounded-xl backdrop-blur-sm border border-none hover:shadow-blue-500/20 hover:shadow-lg">
+                        <Link :href="$page.props.auth.user ? '/panel' : '/login'" class="relative w-60 sm:w-[220px] md:w-[220px] text-center 
+        overflow-hidden 
+        transition-all duration-900 ease-in-out 
+        text-white
+        font-semibold
+        border-2 border-[#3763a7] 
+        bg-gradient-to-r 
+        from-[rgba(27,80,253,0.41)] 
+        via-transparent 
+        to-[rgba(27,151,253,0.3)] 
+        px-4 sm:px-6 
+        py-3 
+        rounded-xl 
+        hover:text-white
+        hover:shadow-inset_0_0_10px_rgba(55,99,167,0.7),0_0_9px_3px_rgba(55,99,167,0.8)]
+        shadow-[inset_0_0_10px_rgba(55,99,167,0.6),0_0_9px_3px_rgba(55,99,167,0.8)]
+        tracking-wider
+        group
+        transform hover:scale-105
+      ">
                         {{ $page.props.auth.user ? 'Ir al panel' : '¡ Postula ya !' }}
+                        <span class="absolute left-[-4em] top-0 h-full w-[4em] transition-transform duration-900 
+          bg-gradient-to-r 
+          from-transparent 
+          via-[rgba(27,200,255,0.5)] 
+          to-transparent 
+          group-hover:translate-x-[15em]"></span>
                         </Link>
                     </div>
-
+                    <!-- inset_0_0_10px_rgba(55,99,167,0.4),0_0_9px_3px_rgba(55,99,167,0.1)] -->
+                    <!-- shadow-[inset_0_0_10px_rgba(55,99,167,0.6),0_0_9px_3px_rgba(55,99,167,0.2)] -->
                     <div
                         class="flex flex-wrap items-center justify-center gap-4 text-sm sm:text-base md:text-lg animate-fade-in-up font-semibold">
                         <span class="w-autotext-center bg-blue-200/5 rounded-lg px-4 sm:px-3 py-2  backdrop-blur-sm">
                             Noviembre 26
+                        </span>
+                        <span class="w-autotext-center bg-blue-200/5 rounded-lg px-4 sm:px-3 py-2  backdrop-blur-sm">
+                            08:00 AM - 02:00 PM
                         </span>
                         <span class="w-autotext-center bg-blue-200/5 rounded-lg px-4 sm:px-3 py-2  backdrop-blur-sm">
                             Biblioteca UDH
