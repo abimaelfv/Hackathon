@@ -98,9 +98,9 @@ onUnmounted(() => {
         <!-- Mobile Menu -->
         <div v-if="isMenuOpen" class="lg:hidden mt-4 py-4 px-2 bg-black/80 backdrop-blur-lg rounded-xl text-center">
             <div class="flex flex-col gap-4">
-                <a href="#bases" :class="activeSection === '#bases' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
+                <a href="#inicio" :class="activeSection === '#inicio' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
                     class="px-4 py-2 transition-colors cursor-pointer">
-                    Bases
+                    Inicio
                 </a>
                 <a href="#bases" :class="activeSection === '#bases' ? 'text-blue-300 font-bold' : 'hover:text-blue-300'"
                     class="px-4 py-2 transition-colors cursor-pointer">
