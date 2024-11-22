@@ -12,6 +12,8 @@ class PanelController extends Controller
     {
         if (User::esRol('ESTUDIANTE')) {
             return redirect('inscripcion');
+        }else{
+            return redirect('inscripciones');
         }
 
         return Inertia::render('Dashboard');

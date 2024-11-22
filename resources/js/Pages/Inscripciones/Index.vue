@@ -5,6 +5,7 @@ import DialogModal from '@/Components/DialogModal.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { formatDateTime } from '@/helpers.js';
+import axios from 'axios';
 
 const modal = ref(false);
 
@@ -12,9 +13,20 @@ const props = defineProps({
     inscripciones: Object
 })
 
-const detalles = (id) => {
-    modal.value = true;
-}
+const inscripcion = ref({});
+
+const detalles = async (id) => {
+    try {
+        const response = await axios.get(route('inscripciones.view', id));
+        if (response.data.status) {
+            modal.value = true
+            inscripcion.value = response.data.data
+        } else {
+            throw response.data.msg
+        }
+    } catch (error) {
+    }
+};
 
 </script>
 
@@ -28,8 +40,14 @@ const detalles = (id) => {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="mb-4">
+                    <a :href="route('inscripciones.exportar')"
+                        class="nline-flex items-center px-4 py-2 bg-udh_1 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest focus:outline-none focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150 hover:opacity-85">
+                        <i class="fa-solid fa-file-export mr-1"></i> Exportar
+                    </a>
+                </div>
 
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -93,13 +111,13 @@ const detalles = (id) => {
                     <!-- Nombre del equipo -->
                     <div class="md:col-span-3">
                         <InputLabel :value="$t('Nombre del equipo')" />
-                        <div class="border p-4 mt-2">Hola</div>
+                        <div class="border p-4 mt-2 font-bold">{{ inscripcion.ins_equipo }}</div>
                     </div>
 
                     <!-- Categoría -->
                     <div class="md:col-span-2">
                         <InputLabel :value="$t('Categoría')" />
-                        <div class="border p-3 mt-2 text-xl text-center font-bold">A</div>
+                        <div class="border p-3 mt-2 text-xl text-center font-bold">{{ inscripcion.ins_categoria }}</div>
                     </div>
                 </div>
                 <div class="mt-4">
@@ -122,17 +140,18 @@ const detalles = (id) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr
+                                    <tr v-if="inscripcion.integrantes.length > 0"
+                                        v-for="integrante in inscripcion.integrantes"
                                         class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            2019110516
+                                            {{ integrante.user.codigo }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            ABIMAEL EPIFANIO FERNANDEZ VENTURA
+                                            {{ integrante.user.name + ' ' + integrante.user.apellidos }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            901231876
+                                            {{ integrante.user.phone }}
                                         </td>
                                     </tr>
                                 </tbody>

@@ -79,8 +79,8 @@ const submit = () => {
                         class="block w-full border-gray-300 focus:border-udh_1 focus:ring-udh_1 rounded-md shadow-sm"
                         required v-model="form.genero">
                         <option value="" disabled selected hidden>Seleccione...</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="Femenino">Femenino</option>
+                        <option value="MASCULINO">MASCULINO</option>
+                        <option value="FEMENINO">FEMENINO</option>
                     </select>
                     <InputError class="mt-2" :message="form.errors.genero" />
                 </div>
