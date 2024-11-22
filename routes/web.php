@@ -3,6 +3,7 @@
 use App\Actions\Fortify\CompletarRegistro;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\InscripcionController;
+use App\Http\Controllers\InscripcionesController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PersonasController;
 use Illuminate\Foundation\Application;
@@ -52,5 +53,10 @@ Route::middleware([
         Route::post('/confirmar-inscripcion/{ins_id}', 'confirmar')->name('confirmar.incripcion');
 
         Route::get('/inscripciones', 'inscripciones')->name('inscripciones');
+    });
+
+    Route::controller(InscripcionesController::class)->group(function () {
+        Route::get('/inscripciones/view/{id}', 'view')->name('inscripciones.view');
+        Route::get('/inscripciones/exportar', 'exportar')->name('inscripciones.exportar');
     });
 });
