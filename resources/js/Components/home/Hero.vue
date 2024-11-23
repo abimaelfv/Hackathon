@@ -39,7 +39,7 @@ onMounted(() => {
             </div>
             <div class="group">
                 <div class="py-8 px-6 rounded-xl bg-white backdrop-blur-sm text-center transition-all">
-                    <h3 class="text-2xl font-bold text-black lg:text-xl">Hackathon 2024 UDH</h3>
+                    <h3 class="text-2xl font-bold text-black lg:text-xl">Hackathon UDH 2024</h3>
                     <p class="py-3 min-h-14 text-black font-medium">¡Postula ya y sé parte del cambio!</p>
                     <div class="flex justify-center">
                         <button @click="openModal" v-if="!isMobile"
