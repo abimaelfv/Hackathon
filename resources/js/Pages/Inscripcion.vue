@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { useForm, router } from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -18,6 +18,8 @@ const modal = ref(false);
 const modalConfirm = ref(false);
 
 const dataConfirmar = ref();
+const debounceTimer = ref(null);
+const savingStatus = ref('');
 
 const isEditable = computed(() => props.inscripcion.ins_estado !== 1);
 
@@ -94,10 +96,21 @@ const eliminar = (id) => {
 };
 
 const actualizarInscripcion = () => {
+    savingStatus.value = 'Guardando...';
     insc.post(route('actualizar.incripcion'), {
         preserveScroll: true,
+        onSuccess: () => {
+            savingStatus.value = 'Guardado.';
+            setTimeout(() => {
+                savingStatus.value = '';
+            }, 2000);
+        },
+        onError: () => {
+            savingStatus.value = 'Algo salio mal.';
+        },
     });
-}
+};
+
 
 const validar = async (ins_id) => {
     try {
@@ -122,6 +135,27 @@ const confirmar = (id) => {
     });
 };
 
+watch(
+    () => insc.equipo,
+    () => {
+        if (debounceTimer.value) {
+            clearTimeout(debounceTimer.value);
+        }
+        debounceTimer.value = setTimeout(() => {
+            actualizarInscripcion();
+        }, 1000);
+    }
+);
+
+watch(
+    () => insc.categoria,
+    (newValue) => {
+        if (newValue) {
+            actualizarInscripcion();
+        }
+    }
+);
+
 </script>
 
 <template>
@@ -141,7 +175,8 @@ const confirmar = (id) => {
                                 <!-- Nombre del equipo -->
                                 <div class="md:col-span-3">
                                     <InputLabel for="equipo" :value="$t('Nombre del equipo')" />
-                                    <TextInput type="text" class="mt-2 py-3 block w-full" v-model="insc.equipo" required
+                                    <TextInput type="text" class="mt-2 py-3 block w-full" v-model="insc.equipo"
+                                        @input="onEquipoInput" @paste="onEquipoInput" @change="onEquipoInput" required
                                         :disabled="!isEditable" />
                                     <InputError class="mt-2" :message="insc.errors.equipo" />
                                 </div>
@@ -240,15 +275,15 @@ const confirmar = (id) => {
                                     </span>
                                 </div>
 
-                                <div class="flex flex-wrap gap-2">
-                                    <PrimaryButton :class="{ 'opacity-25': insc.processing }" v-if="isEditable"
-                                        :disabled="insc.processing" @click="actualizarInscripcion"
-                                        class="w-full sm:w-auto">
-                                        {{ $t("Guardar en borrador") }}
-                                    </PrimaryButton>
+                                <div class="flex items-center gap-2">
 
-                                    <PrimaryButton class="!bg-green-800 w-full sm:w-auto" v-if="isEditable"
-                                        @click="validar(inscripcion.ins_id)">
+                                    <div class="me-3">
+                                        <div v-if="savingStatus" class="text-sm text-gray-600">{{ savingStatus }}</div>
+                                    </div>
+
+                                    <PrimaryButton class="!bg-green-800 w-full sm:w-auto"
+                                        :class="{ 'opacity-25': insc.processing }" v-if="isEditable"
+                                        @click="validar(inscripcion.ins_id)" :disabled="insc.processing">
                                         {{ $t("Confirmar inscripción") }}
                                     </PrimaryButton>
                                 </div>
