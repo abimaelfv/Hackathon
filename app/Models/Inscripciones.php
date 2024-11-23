@@ -16,4 +16,10 @@ class Inscripciones extends Model
     {
         return $this->hasMany(Integrantes::class, 'ins_id', 'ins_id');
     }
+
+
+    public function setInsEquipoAttribute($value)
+    {
+        $this->attributes['ins_equipo'] = trim(preg_replace('/\s+/', ' ', $value));
+    }
 }
