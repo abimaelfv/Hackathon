@@ -121,8 +121,8 @@ class InscripcionController extends Controller
     {
         $request->validate([
             'ins_id' => ['required'],
-            'equipo' => ['required'],
-            'categoria' => ['required'],
+            'equipo' => ['nullable'],
+            'categoria' => ['nullable'],
         ]);
 
         $ins_id = $request->ins_id;
