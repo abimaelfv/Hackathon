@@ -121,8 +121,10 @@ class InscripcionController extends Controller
     {
         $request->validate([
             'ins_id' => ['required'],
-            'equipo' => ['nullable'],
+            'equipo' => ['nullable', "regex:/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ&'+& ]+$/"],
             'categoria' => ['nullable'],
+        ], [
+            'equipo.regex' => 'El nombre del equipo solo puede contener letras, números, espacios, tildes.'
         ]);
 
         $ins_id = $request->ins_id;
@@ -133,7 +135,6 @@ class InscripcionController extends Controller
 
         return redirect()->back()->with('toast', 'saved');
     }
-
 
     public function validar($ins_id)
     {
