@@ -153,8 +153,9 @@ const confirmar = (id) => {
                                         class="mt-2 py-3 block w-full border-gray-300 focus:border-udh_1 focus:ring-udh_1 rounded-md shadow-sm"
                                         required v-model="insc.categoria" :disabled="!isEditable">
                                         <option value="" disabled selected hidden>Seleccione...</option>
-                                        <option value="A">Categoría A: Estudiantes de 1ro a 6to ciclo</option>
-                                        <option value="B">Categoría B: Estudiantes de 7mo a 10mo ciclo</option>
+                                        <option value="C">Categoría C: De 1er a 4to ciclo</option>
+                                        <option value="A">Categoría A: De 5to a 6to ciclo</option>
+                                        <option value="B">Categoría B: De 7mo a 10mo ciclo</option>
                                     </select>
                                     <InputError class="mt-2" :message="insc.errors.categoria" />
                                 </div>
