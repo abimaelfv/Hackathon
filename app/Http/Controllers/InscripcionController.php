@@ -7,6 +7,7 @@ use App\Models\Integrantes;
 use App\Models\Personas;
 use App\Models\User;
 use App\Rules\MiembroUnicoEquipo;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,16 +19,21 @@ class InscripcionController extends Controller
     public function incripcion()
     {
         $this->authorize('inscripcion');
+        $fechaLimite = Carbon::parse(env('FECHA_LIMITE'));
 
-        $user_id = Auth::user()->id;
-        $ins_id = Integrantes::where('user_id', $user_id)->value('ins_id');
-        if (empty($ins_id)) {
-            $ins_id = $this->IDorCreateInscripcion();
+        $ins_id = Integrantes::where('user_id', Auth::id())->value('ins_id');
+
+        $confirmado = Inscripciones::where('ins_estado', 1)->find($ins_id);
+
+        if (!$fechaLimite->isFuture() && empty($confirmado)) {
+            $fuera = true;
+            return Inertia::render('Inscripcion', compact('fuera'));
         }
-        $inscripcion = Inscripciones::where('ins_id', $ins_id)
-            ->with('integrantes')
-            ->with('integrantes.user')
-            ->first();
+
+        $ins_id ??= $this->IDorCreateInscripcion();
+
+        $inscripcion = Inscripciones::with(['integrantes.user'])
+            ->find($ins_id);
 
         return Inertia::render('Inscripcion', compact('inscripcion'));
     }
@@ -35,7 +41,8 @@ class InscripcionController extends Controller
     public function inscripciones()
     {
         $this->authorize('inscripciones');
-        $inscripciones = Inscripciones::where('ins_estado', 1)->get();
+        $inscripciones = Inscripciones::where('ins_estado', 1)
+            ->orderBy('ins_fecha')->get();
         return Inertia::render('Inscripciones/Index', compact('inscripciones'));
     }
 
