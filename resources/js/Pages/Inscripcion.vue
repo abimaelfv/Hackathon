@@ -12,14 +12,18 @@ import axios from "axios";
 
 const props = defineProps({
     inscripcion: Object,
-})
+    fuera: {
+        type: Boolean,
+        default: false,
+    },
+});
 
 const modal = ref(false);
 const modalConfirm = ref(false);
 
 const dataConfirmar = ref();
 const debounceTimer = ref(null);
-const savingStatus = ref('');
+const savingStatus = ref("");
 
 const isEditable = computed(() => props.inscripcion.ins_estado !== 1);
 
@@ -34,105 +38,107 @@ const openModal = () => {
 };
 
 const form = useForm({
-    ins_id: props.inscripcion.ins_id,
-    codigo: '',
-    nombres: ''
+    ins_id: props.inscripcion?.ins_id,
+    codigo: "",
+    nombres: "",
 });
 
 const insc = useForm({
-    ins_id: props.inscripcion.ins_id,
-    equipo: props.inscripcion.ins_equipo ?? '',
-    categoria: props.inscripcion.ins_categoria ?? ''
+    ins_id: props.inscripcion?.ins_id,
+    equipo: props.inscripcion?.ins_equipo ?? "",
+    categoria: props.inscripcion?.ins_categoria ?? "",
 });
 
 const buscar = async () => {
-    form.errors = {}
+    form.errors = {};
     if (form.codigo) {
         try {
-            const response = await axios.get(route('personas.buscar', form.codigo));
+            const response = await axios.get(
+                route("personas.buscar", form.codigo)
+            );
             if (response.data.status) {
-                const datos = response.data.data
-                form.codigo = datos.codigo
-                form.nombres = datos.name + ' ' + datos.apellidos
+                const datos = response.data.data;
+                form.codigo = datos.codigo;
+                form.nombres = datos.name + " " + datos.apellidos;
             } else {
-                form.nombres = ''
-                throw response.data.msg
+                form.nombres = "";
+                throw response.data.msg;
             }
         } catch (error) {
-            form.errors.codigo = error
+            form.errors.codigo = error;
         }
     } else {
-        form.errors.codigo = 'Ingrese el código del estudiante'
+        form.errors.codigo = "Ingrese el código del estudiante";
     }
 };
 
 const guardar = () => {
     if (form.nombres) {
-        form.post(route('agregar.miembro'), {
+        form.post(route("agregar.miembro"), {
             preserveScroll: true,
             onSuccess: () => {
-                closeModal()
+                closeModal();
                 form.reset();
                 form.clearErrors();
             },
-            onFinish: () => {
-            }
+            onFinish: () => { },
         });
     } else {
-        form.errors.codigo = 'Primero debes buscar al estudiante.'
+        form.errors.codigo = "Primero debes buscar al estudiante.";
     }
-}
+};
 
 const eliminar = (id) => {
-    const posicion = window.scrollY
-    router.delete(route('eliminar.miembro', id), {
-        onSuccess: () => {
-
-        },
+    const posicion = window.scrollY;
+    router.delete(route("eliminar.miembro", id), {
+        onSuccess: () => { },
         onFinish: () => {
-            window.scrollTo(0, posicion)
-        }
+            window.scrollTo(0, posicion);
+        },
     });
 };
 
 const actualizarInscripcion = () => {
-    savingStatus.value = 'Guardando...';
-    insc.post(route('actualizar.incripcion'), {
+    savingStatus.value = "Guardando...";
+    insc.post(route("actualizar.incripcion"), {
         preserveScroll: true,
         onSuccess: () => {
-            savingStatus.value = 'Guardado.';
+            savingStatus.value = "Guardado.";
             setTimeout(() => {
-                savingStatus.value = '';
+                savingStatus.value = "";
             }, 2000);
         },
         onError: () => {
-            savingStatus.value = 'Algo salio mal.';
+            savingStatus.value = "Algo salio mal.";
         },
     });
 };
 
-
 const validar = async (ins_id) => {
     try {
-        const response = await axios.get(route('validar.incripcion', ins_id));
+        const response = await axios.get(route("validar.incripcion", ins_id));
         if (response.data.status) {
-            modalConfirm.value = true
-            dataConfirmar.value = response.data
+            modalConfirm.value = true;
+            dataConfirmar.value = response.data;
         } else {
-            throw response.data.msg
+            throw response.data.msg;
         }
     } catch (error) {
-        form.errors.equipo = error
+        form.errors.equipo = error;
     }
 };
 
 const confirmar = (id) => {
-    router.post(route('confirmar.incripcion', id), {}, {
-        preserveScroll: true,
-        onSuccess: () => {
-            modalConfirm.value = false;
-        },
-    });
+    router.post(
+        route("confirmar.incripcion", id),
+        {},
+        {
+            preserveScroll: true,
+            onSuccess: () => {
+                modalConfirm.value = false;
+            },
+        }
+    );
 };
 
 watch(
@@ -155,7 +161,6 @@ watch(
         }
     }
 );
-
 </script>
 
 <template>
@@ -171,124 +176,185 @@ watch(
                 <div class="mt-6">
                     <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                         <div class="bg-gray-200 bg-opacity-25 p-6 lg:p-8">
-                            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-                                <!-- Nombre del equipo -->
-                                <div class="md:col-span-3">
-                                    <InputLabel for="equipo" :value="$t('Nombre del equipo')" />
-                                    <TextInput type="text" class="mt-2 py-3 block w-full" v-model="insc.equipo"
-                                        @input="onEquipoInput" @paste="onEquipoInput" @change="onEquipoInput" required
-                                        :disabled="!isEditable" />
-                                    <InputError class="mt-2" :message="insc.errors.equipo" />
+                            <div v-if="fuera" class="block md:flex justify-start">
+                                <div class="text-center md:mr-20">
+                                    <i class="fa-solid fa-triangle-exclamation text-4xl text-yellow-600"></i>
+                                    <h2 class="text-2xl font-bold text-yellow-600 mb-4 mt-2">
+                                        Atención
+                                    </h2>
                                 </div>
-
-                                <!-- Categoría -->
-                                <div class="md:col-span-2">
-                                    <InputLabel for="categoria" :value="$t('Categoría')" />
-                                    <select
-                                        class="mt-2 py-3 block w-full border-gray-300 focus:border-udh_1 focus:ring-udh_1 rounded-md shadow-sm"
-                                        required v-model="insc.categoria" :disabled="!isEditable">
-                                        <option value="" disabled selected hidden>Seleccione...</option>
-                                        <option value="C">Categoría C: De 1er a 4to ciclo</option>
-                                        <option value="A">Categoría A: De 5to a 6to ciclo</option>
-                                        <option value="B">Categoría B: De 7mo a 10mo ciclo</option>
-                                    </select>
-                                    <InputError class="mt-2" :message="insc.errors.categoria" />
+                                <div class="flex justify-center flex-col">
+                                    <p class="text-gray-700 text-lg mb-2">
+                                        No estás inscrito en el hackathon
+                                    </p>
+                                    <p class="text-gray-500 italic">
+                                        Fecha de inscripción finalizada :).
+                                    </p>
                                 </div>
                             </div>
+                            <div v-else>
+                                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                                    <!-- Nombre del equipo -->
+                                    <div class="md:col-span-3">
+                                        <InputLabel for="equipo" :value="$t('Nombre del equipo')" />
+                                        <TextInput type="text" class="mt-2 py-3 block w-full" v-model="insc.equipo"
+                                            @input="onEquipoInput" @paste="onEquipoInput" @change="onEquipoInput"
+                                            required :disabled="!isEditable" />
+                                        <InputError class="mt-2" :message="insc.errors.equipo" />
+                                    </div>
 
-                            <div class="border rounded-md mt-6">
-                                <div class="bg-gray-200 p-4 flex items-center justify-between">
-                                    <h4 class="text-udh_3 font-semibold">Integrantes</h4>
-                                    <button class="bg-udh_1 text-white py-2 px-4 rounded text-sm" @click="openModal"
-                                        v-if="inscripcion.integrantes.length < 4">
-                                        <i class="fa fa-plus mr-1"></i>
-                                        Agregar
-                                    </button>
+                                    <!-- Categoría -->
+                                    <div class="md:col-span-2">
+                                        <InputLabel for="categoria" :value="$t('Categoría')" />
+                                        <select
+                                            class="mt-2 py-3 block w-full border-gray-300 focus:border-udh_1 focus:ring-udh_1 rounded-md shadow-sm"
+                                            required v-model="insc.categoria" :disabled="!isEditable">
+                                            <option value="" disabled selected hidden>
+                                                Seleccione...
+                                            </option>
+                                            <option value="C">
+                                                Categoría C: De 1er a 4to ciclo
+                                            </option>
+                                            <option value="A">
+                                                Categoría A: De 5to a 6to ciclo
+                                            </option>
+                                            <option value="B">
+                                                Categoría B: De 7mo a 10mo ciclo
+                                            </option>
+                                        </select>
+                                        <InputError class="mt-2" :message="insc.errors.categoria" />
+                                    </div>
                                 </div>
-                                <div class="p-4">
-                                    <div class="relative overflow-x-auto">
-                                        <table
-                                            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                            <thead
-                                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                                <tr>
-                                                    <th scope="col" class="px-6 py-3">
-                                                        Código
-                                                    </th>
-                                                    <th scope="col" class="px-6 py-3">
-                                                        Nombres y Apellidos
-                                                    </th>
-                                                    <th scope="col" class="px-6 py-3">
-                                                        Teléfono
-                                                    </th>
-                                                    <th scope="col" class="px-6 py-3 text-center">
-                                                        Acción
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr v-if="inscripcion.integrantes.length > 0"
-                                                    v-for="integrante in inscripcion.integrantes"
-                                                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                                    <th scope="row"
-                                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {{ integrante.user.codigo }}
-                                                    </th>
-                                                    <td class="px-6 py-4">
-                                                        {{ integrante.user.name + ' ' + integrante.user.apellidos }}
-                                                    </td>
-                                                    <td class="px-6 py-4">
-                                                        {{ integrante.user.phone }}
-                                                    </td>
-                                                    <td class="px-6 py-4 text-center">
-                                                        <button class="cursor-pointer p-2" :disabled="!isEditable"
-                                                            :class="{ 'opacity-25 cursor-not-allowed': !isEditable }"
-                                                            @click="eliminar(integrante.int_id)">
-                                                            <i class="fa fa-trash text-red-600"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr v-else>
-                                                    <td colspan="4" class="px-6 py-3">
-                                                        <span class="text-center text-gray-600">
-                                                            {{ $t("Agrega 4 integrantes para confirmar la inscripción.")
+
+                                <div class="border rounded-md mt-6">
+                                    <div class="bg-gray-200 p-4 flex items-center justify-between">
+                                        <h4 class="text-udh_3 font-semibold">
+                                            Integrantes
+                                        </h4>
+                                        <button class="bg-udh_1 text-white py-2 px-4 rounded text-sm" @click="openModal"
+                                            v-if="
+                                                inscripcion.integrantes.length <
+                                                4
+                                            ">
+                                            <i class="fa fa-plus mr-1"></i>
+                                            Agregar
+                                        </button>
+                                    </div>
+                                    <div class="p-4">
+                                        <div class="relative overflow-x-auto">
+                                            <table
+                                                class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                                <thead
+                                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                    <tr>
+                                                        <th scope="col" class="px-6 py-3">
+                                                            Código
+                                                        </th>
+                                                        <th scope="col" class="px-6 py-3">
+                                                            Nombres y Apellidos
+                                                        </th>
+                                                        <th scope="col" class="px-6 py-3">
+                                                            Teléfono
+                                                        </th>
+                                                        <th scope="col" class="px-6 py-3 text-center">
+                                                            Acción
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-if="
+                                                        inscripcion
+                                                            .integrantes
+                                                            .length > 0
+                                                    " v-for="integrante in inscripcion.integrantes"
+                                                        class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                                        <th scope="row"
+                                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                            {{
+                                                                integrante.user
+                                                                    .codigo
                                                             }}
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                        </th>
+                                                        <td class="px-6 py-4">
+                                                            {{
+                                                                integrante.user
+                                                                    .name +
+                                                                " " +
+                                                                integrante.user
+                                                                    .apellidos
+                                                            }}
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            {{
+                                                                integrante.user
+                                                                    .phone
+                                                            }}
+                                                        </td>
+                                                        <td class="px-6 py-4 text-center">
+                                                            <button class="cursor-pointer p-2" :disabled="!isEditable
+                                                                " :class="{
+                                                                    'opacity-25 cursor-not-allowed':
+                                                                        !isEditable,
+                                                                }" @click="
+                                                                    eliminar(
+                                                                        integrante.int_id
+                                                                    )
+                                                                    ">
+                                                                <i class="fa fa-trash text-red-600"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr v-else>
+                                                        <td colspan="4" class="px-6 py-3">
+                                                            <span class="text-center text-gray-600">
+                                                                {{
+                                                                    $t(
+                                                                        "Agrega 4 integrantes para confirmar la inscripción."
+                                                                    )
+                                                                }}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4 space-y-4 sm:space-y-0">
+                                    <div class="text-sm">
+                                        Estado de postulación:
+                                        <span class="ml-2 font-bold px-2 py-1 rounded" :class="{
+                                            'text-red-600 bg-red-100':
+                                                inscripcion.ins_estado == 2,
+                                            'text-green-600 bg-green-100':
+                                                inscripcion.ins_estado != 2,
+                                        }">
+                                            {{
+                                                inscripcion.ins_estado == 2
+                                                    ? "Borrador"
+                                                    : "Confirmada"
+                                            }}
+                                        </span>
                                     </div>
 
-                                </div>
-                            </div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="me-3">
+                                            <div v-if="savingStatus" class="text-sm text-gray-600">
+                                                {{ savingStatus }}
+                                            </div>
+                                        </div>
 
-                            <div
-                                class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4 space-y-4 sm:space-y-0">
-                                <div class="text-sm">
-                                    Estado de postulación:
-                                    <span class="ml-2 font-bold px-2 py-1 rounded" :class="{
-                                        'text-red-600 bg-red-100': inscripcion.ins_estado == 2,
-                                        'text-green-600 bg-green-100': inscripcion.ins_estado != 2,
-                                    }">
-                                        {{ inscripcion.ins_estado == 2 ? 'Borrador' : 'Confirmada' }}
-                                    </span>
-                                </div>
-
-                                <div class="flex items-center gap-2">
-
-                                    <div class="me-3">
-                                        <div v-if="savingStatus" class="text-sm text-gray-600">{{ savingStatus }}</div>
+                                        <PrimaryButton class="!bg-green-800 w-full sm:w-auto" :class="{
+                                            'opacity-25': insc.processing,
+                                        }" v-if="isEditable" @click="validar(inscripcion.ins_id)"
+                                            :disabled="insc.processing">
+                                            {{ $t("Confirmar inscripción") }}
+                                        </PrimaryButton>
                                     </div>
-
-                                    <PrimaryButton class="!bg-green-800 w-full sm:w-auto"
-                                        :class="{ 'opacity-25': insc.processing }" v-if="isEditable"
-                                        @click="validar(inscripcion.ins_id)" :disabled="insc.processing">
-                                        {{ $t("Confirmar inscripción") }}
-                                    </PrimaryButton>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -301,7 +367,7 @@ watch(
             </template>
 
             <template #content>
-                <hr>
+                <hr />
                 <div class="mt-4">
                     <InputLabel for="dni" :value="$t('Código del estudiante')" />
                     <div class="relative mt-1">
@@ -317,7 +383,6 @@ watch(
                     <TextInput type="text" class="mt-2 py-2 block w-full bg-gray-50" v-model="form.nombres"
                         placeholder="Nombres y apellidos" disabled />
                 </div>
-
             </template>
 
             <template #footer>
@@ -337,20 +402,36 @@ watch(
             </template>
 
             <template #content>
-                <hr>
-                <div class="pt-4"
-                    v-if="dataConfirmar.equipo && dataConfirmar.categoria && dataConfirmar.lider && dataConfirmar.integrantes == 4">
-                    <p class="mb-3">¿Estas seguro de confirmar la inscripción?</p>
+                <hr />
+                <div class="pt-4" v-if="
+                    dataConfirmar.equipo &&
+                    dataConfirmar.categoria &&
+                    dataConfirmar.lider &&
+                    dataConfirmar.integrantes == 4
+                ">
+                    <p class="mb-3">
+                        ¿Estas seguro de confirmar la inscripción?
+                    </p>
 
-                    <p>Ten en cuenta que, una vez que confirmes, <b>no podrás realizar modificaciones</b>.</p>
-                    <p>Además, recuerda que tu equipo debe contar, como mínimo, con <b>una dama</b>; de lo contrario,
+                    <p>
+                        Ten en cuenta que, una vez que confirmes,
+                        <b>no podrás realizar modificaciones</b>.
+                    </p>
+                    <p>
+                        Además, recuerda que tu equipo debe contar, como mínimo,
+                        con <b>una dama</b>; de lo contrario,
                         <b>serás descalificado</b>.
                     </p>
-                    <br>
-                    <p>Si está de acuerdo, presione el botón <b class="text-udh_3">Confirmar</b>.</p>
+                    <br />
+                    <p>
+                        Si está de acuerdo, presione el botón
+                        <b class="text-udh_3">Confirmar</b>.
+                    </p>
                 </div>
                 <div class="mt-4" v-else>
-                    <p class="mb-2 font-semibold">Subsanar las siguientes observaciones:</p>
+                    <p class="mb-2 font-semibold">
+                        Subsanar las siguientes observaciones:
+                    </p>
                     <ul class="list-disc ml-6 text-red-500">
                         <li v-if="dataConfirmar.equipo == false" class="mb-2">
                             Añade el nombre de tu equipo.
@@ -362,12 +443,12 @@ watch(
                             Asegúrate de que tu equipo tenga 4 integrantes.
                         </li>
                         <li v-if="dataConfirmar.lider == false" class="mb-2">
-                            El propietario del equipo no está en los integrantes.
+                            El propietario del equipo no está en los
+                            integrantes.
                         </li>
                     </ul>
                     <p class="mt-3">Agradecemos tu colaboración.</p>
                 </div>
-
             </template>
 
             <template #footer>
@@ -375,13 +456,15 @@ watch(
                     {{ $t("Revisar") }}
                 </SecondaryButton>
 
-                <PrimaryButton class="ms-3"
-                    v-if="dataConfirmar.equipo && dataConfirmar.categoria && dataConfirmar.lider && dataConfirmar.integrantes == 4"
-                    @click="confirmar(inscripcion.ins_id)">
+                <PrimaryButton class="ms-3" v-if="
+                    dataConfirmar.equipo &&
+                    dataConfirmar.categoria &&
+                    dataConfirmar.lider &&
+                    dataConfirmar.integrantes == 4
+                " @click="confirmar(inscripcion.ins_id)">
                     {{ $t("Confirmar") }}
                 </PrimaryButton>
             </template>
         </Modal>
-
     </AppLayout>
 </template>

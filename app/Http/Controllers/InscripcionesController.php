@@ -33,6 +33,7 @@ class InscripcionesController extends Controller
     public function exportar()
     {
         $equipos = Inscripciones::where('ins_estado', 1)
+            ->orderBy('ins_fecha')
             ->with('integrantes.user')
             ->get();
 
